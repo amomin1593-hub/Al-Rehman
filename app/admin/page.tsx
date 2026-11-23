@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { ArrowRight, AlertTriangle } from "lucide-react";
 import { dbStatus, getCatalog, listOrders } from "@/lib/server/db";
+import { safe } from "@/lib/server/safe";
+import AdminProblem, { dbHint } from "@/components/admin/AdminProblem";
 import { PageTitle, Card } from "@/components/admin/ui";
 import DbStatus from "@/components/admin/DbStatus";
 import { pkr } from "@/lib/site";
@@ -9,9 +11,13 @@ export const dynamic = "force-dynamic";
 
 export default async function Dashboard() {
   const status = await dbStatus();
-  const [cat, orders] = status.ok
-    ? await Promise.all([getCatalog(), listOrders()])
-    : [{ products: [], categories: [], collections: [], finishes: [] }, []];
+  const empty = { products: [], categories: [], collections: [], finishes: [] };
+  const [[catRes, catErr], [ordRes, ordErr]] = status.ok
+    ? await Promise.all([safe(getCatalog()), safe(listOrders())])
+    : [[empty, null], [[], null]] as const;
+  const cat = catRes ?? empty;
+  const orders = ordRes ?? [];
+  const loadError = catErr || ordErr;
   const p = cat.products;
   const out = p.filter((x) => x.stock === 0);
   const low = p.filter((x) => x.stock > 0 && x.stock < 10);
@@ -30,6 +36,7 @@ export default async function Dashboard() {
     <>
       <PageTitle title="Dashboard" sub="An overview of your store." />
       <DbStatus status={status} />
+      {loadError && <div className="mb-8"><AdminProblem title="Some data couldn't be loaded" message={loadError} hint={dbHint} /></div>}
       <div className="grid grid-cols-2 gap-px border border-line bg-line lg:grid-cols-4">
         {stats.map((s) => (
           <Link key={s.label} href={s.href} className="bg-white p-6 transition hover:bg-sand">
