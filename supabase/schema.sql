@@ -52,6 +52,8 @@ create table if not exists public.products (
   updated_at  timestamptz default now()
 );
 create index if not exists products_category_idx on public.products (category);
+-- photo gallery (added later; safe to re-run)
+alter table public.products add column if not exists images jsonb not null default '[]'::jsonb;
 
 create or replace function public.touch_updated_at() returns trigger language plpgsql as $$
 begin new.updated_at = now(); return new; end $$;

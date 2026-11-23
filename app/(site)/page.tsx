@@ -53,7 +53,7 @@ export default async function Home() {
               if (!p) return null;
               return (
                 <Link key={c.slug} href={`/collections/${c.slug}`} className="group w-40 shrink-0 snap-start text-center md:w-auto">
-                  <div className="mx-auto aspect-[3/2] overflow-hidden bg-white">
+                  <div className="mx-auto aspect-square overflow-hidden bg-white">
                     <div className="h-full transition-transform duration-700 group-hover:scale-105">
                       <ProductImage product={p} idSuffix="col" />
                     </div>
@@ -110,7 +110,7 @@ export default async function Home() {
             const hero = heroOfCategory(c.slug);
             return (
             <Link key={c.slug} href={`/shop/${c.slug}`} className="group">
-              <div className="aspect-[3/2] overflow-hidden bg-white">
+              <div className="aspect-square overflow-hidden bg-white">
                 <div className="h-full transition-transform duration-700 group-hover:scale-105">
                   {hero ? <ProductImage product={hero} idSuffix="cat" /> : <div className="h-full bg-sand" />}
                 </div>

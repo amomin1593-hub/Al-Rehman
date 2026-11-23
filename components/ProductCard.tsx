@@ -17,7 +17,7 @@ export default function ProductCard({ product: p }: { product: Product }) {
 
   return (
     <article className="group relative flex flex-col">
-      <div className="relative aspect-[3/2] overflow-hidden bg-white">
+      <div className="relative aspect-square overflow-hidden bg-white">
         <Link href={`/product/${p.slug}`} aria-label={p.name} className="block h-full">
           <div className="h-full transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]">
             <ProductImage product={p} finish={finish ?? undefined} idSuffix="card" />

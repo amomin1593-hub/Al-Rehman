@@ -26,7 +26,13 @@ function sb() {
 }
 
 function must<T>(res: { data: T | null; error: { message: string } | null }, what: string): T {
-  if (res.error) throw new Error(`Database error (${what}): ${res.error.message}`);
+  if (res.error) {
+    const m = res.error.message;
+    const hint = /images/.test(m) && /column|schema cache/i.test(m)
+      ? " (Fix: in Supabase → SQL Editor run:  alter table public.products add column if not exists images jsonb not null default '[]'::jsonb;  )"
+      : "";
+    throw new Error(`Database error (${what}): ${m}${hint}`);
+  }
   return res.data as T;
 }
 
@@ -81,11 +87,15 @@ const normalizeProduct = (p: Product): Product => ({
   stock: Number(p.stock ?? 0),
   finishes: p.finishes ?? [],
   specs: p.specs ?? {},
+  images: Array.isArray(p.images) && p.images.length ? p.images : p.image_url ? [{ url: p.image_url, finish: null }] : [],
 });
 
 // ---------- reads ----------
 export const getCatalog = cache(async (): Promise<Catalog> => {
-  if (!usingSupabase) return readJSON<Catalog>("catalog.json");
+  if (!usingSupabase) {
+    const c = await readJSON<Catalog>("catalog.json");
+    return { ...c, products: c.products.map(normalizeProduct) };
+  }
   const db = sb();
   const [cats, cols, fins, prods] = await Promise.all([
     db.from("categories").select("*").order("sort"),
@@ -251,4 +261,72 @@ export async function importStarterData() {
   const { data: existingHome } = await db.from("site_content").select("key").eq("key", "home").maybeSingle();
   if (!existingHome) must(await db.from("site_content").insert({ key: "home", value: home }).select("key"), "import home");
   return { products: rows.length };
+}
+
+// ---------- bulk import ----------
+/** Save many products at once. Rows with an existing id are updated, rows without are created. */
+export async function bulkSave(rows: Partial<Product>[]): Promise<{ created: number; updated: number }> {
+  const cat = await getCatalog();
+  const byId = new Map(cat.products.map((p) => [p.id, p]));
+  const taken = new Set(cat.products.map((p) => p.slug));
+  const freeSlug = (base: string, current?: string) => {
+    if (current) taken.delete(current);
+    const root = slugify(base) || "product";
+    let s = root;
+    for (let n = 2; taken.has(s); n++) s = `${root}-${n}`;
+    taken.add(s);
+    return s;
+  };
+
+  const updates: Product[] = [];
+  const creates: Omit<Product, "id">[] = [];
+  let skuN = cat.products.length + 1001;
+  for (const r of rows) {
+    const existing = r.id ? byId.get(r.id) : undefined;
+    if (existing) {
+      const merged = { ...existing, ...r, id: existing.id } as Product;
+      merged.slug = r.name && r.name !== existing.name ? freeSlug(r.name, existing.slug) : existing.slug;
+      updates.push(merged);
+    } else {
+      const { id: _drop, ...rest } = r;
+      creates.push({
+        slug: freeSlug(rest.name || "product"),
+        sku: rest.sku || `ART-${(rest.category || "prd").slice(0, 3).toUpperCase()}-${skuN++}`,
+        name: rest.name || "Untitled",
+        category: rest.category!,
+        collection: rest.collection || cat.collections[0]?.slug,
+        price: rest.price ?? 0,
+        compare_at: rest.compare_at ?? null,
+        finishes: rest.finishes ?? [],
+        specs: rest.specs ?? {},
+        art: rest.art || "faucet-basin",
+        tone: rest.tone || "#ece8e1",
+        badge: rest.badge ?? null,
+        rating: rest.rating ?? 5,
+        reviews: rest.reviews ?? 0,
+        stock: rest.stock ?? 0,
+        featured: rest.featured ?? false,
+        description: rest.description || "",
+        image_url: rest.image_url ?? null,
+        images: rest.images ?? (rest.image_url ? [{ url: rest.image_url, finish: null }] : []),
+      });
+    }
+  }
+
+  if (!usingSupabase) {
+    const file = await readJSON<Catalog>("catalog.json");
+    const upd = new Map(updates.map((u) => [u.id, u]));
+    file.products = file.products.map((p) => upd.get(p.id) ?? p);
+    let next = Math.max(0, ...file.products.map((p) => p.id)) + 1;
+    for (const c of creates) file.products.push({ ...c, id: next++ } as Product);
+    await writeJSON("catalog.json", file);
+  } else {
+    const db = sb();
+    if (updates.length) {
+      const strip = updates.map(({ ...u }) => { delete (u as Record<string, unknown>).created_at; delete (u as Record<string, unknown>).updated_at; return u; });
+      must(await db.from("products").upsert(strip).select("id"), "bulk update");
+    }
+    if (creates.length) must(await db.from("products").insert(creates).select("id"), "bulk create");
+  }
+  return { created: creates.length, updated: updates.length };
 }

@@ -80,9 +80,10 @@ export default async function Dashboard() {
         </Card>
       </div>
 
-      <div className="mt-6 grid gap-4 md:grid-cols-3">
+      <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {[
           ["Add a product", "/admin/products/new"],
+          ["Bulk import from a spreadsheet", "/admin/import"],
           ["Change home page banners", "/admin/home"],
           ["Update prices & stock", "/admin/products"],
         ].map(([t, h]) => (

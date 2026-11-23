@@ -6,6 +6,7 @@
 export type Category = { slug: string; name: string; tagline: string; description: string };
 export type Collection = { slug: string; name: string; line: string };
 export type Finish = { slug: string; name: string; hex: string };
+export type ProductPhoto = { url: string; finish: string | null };
 export type Product = {
   id: number;
   slug: string;
@@ -26,7 +27,22 @@ export type Product = {
   featured: boolean;
   description: string;
   image_url?: string | null;
+  /** gallery: first photo is the main one; a photo can belong to a finish (colour) */
+  images?: ProductPhoto[];
 };
+
+/** All photos of a product (falls back to the single image_url). */
+export function productPhotos(p: Product): ProductPhoto[] {
+  if (p.images && p.images.length) return p.images;
+  return p.image_url ? [{ url: p.image_url, finish: null }] : [];
+}
+
+/** The best photo for a finish: that finish's photo, else the main photo. */
+export function photoFor(p: Product, finish?: string | null): string | null {
+  const photos = productPhotos(p);
+  if (!photos.length) return null;
+  return (finish && photos.find((x) => x.finish === finish)?.url) || photos[0].url;
+}
 // Fallback colours for drawings when the finish list isn't at hand
 export const FINISH_HEX: Record<string, string> = {
   chrome: "#c9ccd0",

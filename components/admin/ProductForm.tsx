@@ -4,8 +4,9 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ArrowLeft, Plus, Trash2, ExternalLink } from "lucide-react";
 import ProductArt from "@/components/ProductArt";
-import { api, Card, Field, ImageField, inputCls, PageTitle, Status, useStatus } from "./ui";
-import type { Catalog, Product } from "@/lib/catalog";
+import { api, Card, Field, inputCls, PageTitle, Status, useStatus } from "./ui";
+import GalleryField from "./GalleryField";
+import { productPhotos, type Catalog, type Product } from "@/lib/catalog";
 
 const ARTS = ["basin-round", "basin-rect", "basin-oval", "faucet-basin", "faucet-tall", "faucet-pillar", "faucet-kitchen", "faucet-kitchen-pull", "bidet-spray", "shower-head", "shower-column", "accessory-set", "towel-rail"];
 const BADGES = ["", "New", "Sale", "Best seller"];
@@ -40,6 +41,7 @@ export default function ProductForm({ catalog, product }: { catalog: Catalog; pr
     featured: product?.featured ?? false,
     description: product?.description ?? "",
     image_url: product?.image_url ?? null,
+    images: product ? productPhotos(product) : [],
   }));
   const [specRows, setSpecRows] = useState<[string, string][]>(Object.entries(f.specs));
 
@@ -56,6 +58,8 @@ export default function ProductForm({ catalog, product }: { catalog: Catalog; pr
       compare_at: f.compare_at ? Number(f.compare_at) : null,
       stock: Number(f.stock) || 0,
       badge: f.badge || null,
+      images: f.images ?? [],
+      image_url: f.images?.[0]?.url ?? null,
     };
     await run(async () => {
       if (isNew) {
@@ -185,15 +189,17 @@ export default function ProductForm({ catalog, product }: { catalog: Catalog; pr
         </div>
 
         <div className="space-y-6">
-          <Card title="Photo">
-            <ImageField
-              folder="products"
-              aspect="aspect-[3/2]"
-              value={f.image_url}
-              onChange={(url) => set("image_url", url)}
+          <Card title={`Photos (${f.images?.length ?? 0})`}>
+            <GalleryField
+              value={f.images ?? []}
+              onChange={(imgs) => set("images", imgs)}
+              finishes={catalog.finishes.filter((x) => f.finishes.includes(x.slug))}
               fallback={<ProductArt art={f.art} finish={finishHex} tone={f.tone} id="form-art" className="h-full w-full" />}
             />
-            <p className="mt-3 text-[12px] text-muted">JPG, PNG or WebP up to 8 MB. Landscape 3:2 photos on a white background look best (e.g. 1536×1024). Without a photo, the drawing below is shown.</p>
+            <p className="mt-3 text-[12px] leading-relaxed text-muted">
+              Add several photos at once. The first is the main photo. Set each photo&apos;s colour so customers see the right one when they pick a finish
+              (tick the finishes above first). Square photos look best, e.g. 1254×1254 or 1500×1500. Big photos are shrunk automatically.
+            </p>
             <div className="mt-4">
               <Field label="Drawing (when no photo)">
                 <select className={inputCls} value={f.art} onChange={(e) => set("art", e.target.value)}>

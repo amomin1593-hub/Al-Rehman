@@ -3,12 +3,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
-import { LayoutDashboard, Package, ImageIcon, ClipboardList, ExternalLink, LogOut, Menu, X, AlertTriangle } from "lucide-react";
+import { LayoutDashboard, Package, ImageIcon, ClipboardList, ExternalLink, LogOut, Menu, X, AlertTriangle, FileSpreadsheet } from "lucide-react";
 import { api } from "./ui";
 
 const NAV = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/products", label: "Products & stock", icon: Package },
+  { href: "/admin/import", label: "Bulk import", icon: FileSpreadsheet },
   { href: "/admin/home", label: "Home page", icon: ImageIcon },
   { href: "/admin/orders", label: "Orders", icon: ClipboardList },
 ];

@@ -5,7 +5,7 @@ import { Heart, Truck, ShieldCheck, RotateCcw, Star, ChevronDown } from "lucide-
 import { useStore } from "./StoreProvider";
 import { QtyControl } from "./CartDrawer";
 import ProductArt from "./ProductArt";
-import { FINISH_HEX, type Product } from "@/lib/catalog";
+import { FINISH_HEX, productPhotos, type Product } from "@/lib/catalog";
 import { useCatalog } from "./CatalogProvider";
 import { pkr, waLink, site } from "@/lib/site";
 
@@ -16,20 +16,32 @@ export default function ProductDetail({ product: p }: { product: Product }) {
   const { getCategory, getCollection, getFinish } = useCatalog();
   const [finish, setFinish] = useState<string | null>(p.finishes[0] ?? null);
   const [qty, setQty] = useState(1);
-  const [view, setView] = useState(0);
+  const photos = productPhotos(p);
+  const startView = Math.max(0, photos.findIndex((x) => x.finish === (p.finishes[0] ?? null)));
+  const [view, setView] = useState(photos.length ? startView : 0);
   const [openTab, setOpenTab] = useState<string | null>("Description");
   const fin = finish ? getFinish(finish) : undefined;
   const cat = getCategory(p.category) ?? { slug: p.category, name: p.category };
   const col = getCollection(p.collection) ?? { slug: p.collection, name: p.collection };
   const wished = wishlist.includes(p.id);
 
-  const art = (tone: string, id: string) =>
-    p.image_url ? (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img src={p.image_url} alt={p.name} className="h-full w-full bg-white object-contain" />
-    ) : (
-      <ProductArt art={p.art} finish={fin?.hex ?? FINISH_HEX.chrome} tone={tone || p.tone} id={id} className="h-full w-full" />
-    );
+  const drawing = (tone: string, id: string) => (
+    <ProductArt art={p.art} finish={fin?.hex ?? FINISH_HEX.chrome} tone={tone || p.tone} id={id} className="h-full w-full" />
+  );
+  // eslint-disable-next-line @next/next/no-img-element
+  const photo = (url: string) => <img src={url} alt={p.name} className="h-full w-full bg-white object-contain" />;
+
+  // picking a finish shows that finish's photo; picking a photo selects its finish
+  const pickFinish = (f: string) => {
+    setFinish(f);
+    const i = photos.findIndex((x) => x.finish === f);
+    if (i >= 0) setView(i);
+  };
+  const pickView = (i: number) => {
+    setView(i);
+    const f = photos[i]?.finish;
+    if (f && p.finishes.includes(f)) setFinish(f);
+  };
 
   const tabs: [string, React.ReactNode][] = [
     ["Description", <p key="d" className="leading-relaxed">{p.description}</p>],
@@ -57,14 +69,22 @@ export default function ProductDetail({ product: p }: { product: Product }) {
         <div className="lg:col-span-7">
           <div className="flex flex-col-reverse gap-4 md:flex-row">
             <div className="flex gap-3 md:flex-col">
-              {VIEW_TONES.map((t, i) => (
-                <button key={i} onClick={() => setView(i)} className={`h-16 w-24 shrink-0 overflow-hidden border bg-white transition ${view === i ? "border-ink" : "border-transparent opacity-70 hover:opacity-100"}`}>
-                  {art(t, `pd-t${i}-${finish}`)}
-                </button>
-              ))}
+              {photos.length > 1 &&
+                photos.map((ph, i) => (
+                  <button key={ph.url + i} onClick={() => pickView(i)} title={ph.finish ? getFinish(ph.finish)?.name : undefined}
+                    className={`h-20 w-20 shrink-0 overflow-hidden border bg-white transition ${view === i ? "border-ink" : "border-transparent opacity-70 hover:opacity-100"}`}>
+                    {photo(ph.url)}
+                  </button>
+                ))}
+              {photos.length === 0 &&
+                VIEW_TONES.map((t, i) => (
+                  <button key={i} onClick={() => setView(i)} className={`h-20 w-20 shrink-0 overflow-hidden border bg-white transition ${view === i ? "border-ink" : "border-transparent opacity-70 hover:opacity-100"}`}>
+                    {drawing(t, `pd-t${i}-${finish}`)}
+                  </button>
+                ))}
             </div>
-            <div className="relative aspect-[3/2] flex-1 overflow-hidden bg-white">
-              {art(VIEW_TONES[view], `pd-main-${view}-${finish}`)}
+            <div className="relative aspect-square flex-1 overflow-hidden bg-white">
+              {photos.length ? photo(photos[Math.min(view, photos.length - 1)].url) : drawing(VIEW_TONES[view], `pd-main-${view}-${finish}`)}
               {p.badge && <span className={`absolute left-4 top-4 px-3 py-1 text-[10px] uppercase tracking-[0.2em] ${p.badge === "Sale" ? "bg-sale text-paper" : "bg-paper"}`}>{p.badge}</span>}
             </div>
           </div>
@@ -97,7 +117,7 @@ export default function ProductDetail({ product: p }: { product: Product }) {
                   const ff = getFinish(f);
                   if (!ff) return null;
                   return (
-                    <button key={f} onClick={() => setFinish(f)} title={ff.name} aria-label={ff.name}
+                    <button key={f} onClick={() => pickFinish(f)} title={ff.name} aria-label={ff.name}
                       className={`h-10 w-10 rounded-full ring-offset-4 ring-offset-paper transition ${finish === f ? "ring-1 ring-ink" : "hover:ring-1 hover:ring-line"}`}
                       style={{ background: `linear-gradient(135deg, ${ff.hex}, #fff 150%)` }} />
                   );

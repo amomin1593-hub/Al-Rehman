@@ -88,7 +88,7 @@ export default function ProductsTable({ catalog, initialFilter }: { catalog: Cat
               <tr key={p.id} className="hover:bg-paper/60">
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-3">
-                    <Link href={`/admin/products/${p.id}`} className="h-12 w-[72px] shrink-0 overflow-hidden bg-white">
+                    <Link href={`/admin/products/${p.id}`} className="h-12 w-12 shrink-0 overflow-hidden bg-white">
                       <ProductImage product={p} idSuffix="adm" />
                     </Link>
                     <div className="min-w-0">

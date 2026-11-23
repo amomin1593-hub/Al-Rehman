@@ -118,7 +118,7 @@ export default function Header({ announcement }: { announcement: string }) {
                 if (!p) return null;
                 return (
                   <Link key={c.slug} href={`/shop/${c.slug}`} className="group">
-                    <div className="aspect-[3/2] overflow-hidden bg-white">
+                    <div className="aspect-square overflow-hidden bg-white">
                       <div className="h-full transition-transform duration-700 group-hover:scale-105">
                         <ProductImage product={p} idSuffix="mega" />
                       </div>
@@ -181,7 +181,7 @@ export default function Header({ announcement }: { announcement: string }) {
             <div className="mt-8 grid grid-cols-2 gap-5 md:grid-cols-3">
               {results.map((p) => (
                 <Link key={p.id} href={`/product/${p.slug}`} className="group">
-                  <div className="aspect-[3/2] overflow-hidden bg-white"><ProductImage product={p} idSuffix="s" /></div>
+                  <div className="aspect-square overflow-hidden bg-white"><ProductImage product={p} idSuffix="s" /></div>
                   <p className="mt-2 text-[14px]">{p.name}</p>
                   <p className="text-[13px] text-muted">{pkr(p.price)}</p>
                 </Link>

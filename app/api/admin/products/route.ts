@@ -4,7 +4,7 @@ import { adminOnly, fail } from "@/lib/server/api";
 import { createProduct, deleteProduct, getCatalog, uniqueSlug, updateProduct } from "@/lib/server/db";
 import type { Product } from "@/lib/catalog";
 
-const FIELDS = ["slug", "sku", "name", "category", "collection", "price", "compare_at", "finishes", "specs", "art", "tone", "badge", "rating", "reviews", "stock", "featured", "description", "image_url"] as const;
+const FIELDS = ["slug", "sku", "name", "category", "collection", "price", "compare_at", "finishes", "specs", "art", "tone", "badge", "rating", "reviews", "stock", "featured", "description", "image_url", "images"] as const;
 
 function clean(input: Record<string, unknown>): Partial<Product> {
   const p: Record<string, unknown> = {};
@@ -16,6 +16,14 @@ function clean(input: Record<string, unknown>): Partial<Product> {
   if ("image_url" in p) p.image_url = p.image_url || null;
   if ("name" in p) p.name = String(p.name).trim();
   if ("featured" in p) p.featured = Boolean(p.featured);
+  if ("images" in p) {
+    const list = Array.isArray(p.images) ? p.images : [];
+    p.images = list
+      .filter((x: { url?: unknown }) => x && typeof x.url === "string" && x.url.trim())
+      .slice(0, 20)
+      .map((x: { url: string; finish?: unknown }) => ({ url: x.url.trim(), finish: typeof x.finish === "string" && x.finish ? x.finish : null }));
+    p.image_url = (p.images as { url: string }[])[0]?.url ?? null;
+  }
   return p as Partial<Product>;
 }
 
@@ -48,6 +56,7 @@ export async function POST(req: Request) {
       featured: !!body.featured,
       description: body.description || "",
       image_url: body.image_url ?? null,
+      images: body.images ?? (body.image_url ? [{ url: body.image_url, finish: null }] : []),
     });
     refresh();
     return NextResponse.json({ ok: true, product });

@@ -17,6 +17,39 @@ export async function api<T = { ok: boolean }>(url: string, method: string, body
   return data as T;
 }
 
+/** Shrinks big photos in the browser (max 2000px, JPEG) so uploads are fast and stay under host limits. */
+export async function compressImage(file: File): Promise<File> {
+  if (!file.type.startsWith("image/") || file.type === "image/gif") return file;
+  const MAX = 2000;
+  try {
+    const bmp = await createImageBitmap(file);
+    const scale = Math.min(1, MAX / Math.max(bmp.width, bmp.height));
+    if (scale === 1 && file.size < 1.5 * 1024 * 1024) return file;
+    const w = Math.round(bmp.width * scale), h = Math.round(bmp.height * scale);
+    const canvas = document.createElement("canvas");
+    canvas.width = w;
+    canvas.height = h;
+    const ctx = canvas.getContext("2d")!;
+    ctx.fillStyle = "#ffffff"; // transparent PNGs get a white background
+    ctx.fillRect(0, 0, w, h);
+    ctx.drawImage(bmp, 0, 0, w, h);
+    const blob: Blob | null = await new Promise((r) => canvas.toBlob(r, "image/jpeg", 0.88));
+    if (!blob) return file;
+    return new File([blob], file.name.replace(/\.[^.]+$/, "") + ".jpg", { type: "image/jpeg" });
+  } catch {
+    return file;
+  }
+}
+
+/** Compress + upload one photo, returns its public URL. */
+export async function uploadPhoto(file: File, folder: "products" | "home"): Promise<string> {
+  const fd = new FormData();
+  fd.append("file", await compressImage(file));
+  fd.append("folder", folder);
+  const { url } = await api<{ ok: boolean; url: string }>("/api/admin/upload", "POST", fd);
+  return url;
+}
+
 /** small status line used after saving */
 export function useStatus() {
   const [state, setState] = useState<{ kind: "idle" | "busy" | "ok" | "err"; msg?: string }>({ kind: "idle" });
@@ -105,11 +138,7 @@ export function ImageField({
     setBusy(true);
     setErr("");
     try {
-      const fd = new FormData();
-      fd.append("file", file);
-      fd.append("folder", folder);
-      const { url } = await api<{ ok: boolean; url: string }>("/api/admin/upload", "POST", fd);
-      onChange(url);
+      onChange(await uploadPhoto(file, folder));
     } catch (e) {
       setErr((e as Error).message);
     } finally {
