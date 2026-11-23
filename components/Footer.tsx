@@ -14,7 +14,12 @@ export default function Footer({ categories }: { categories: Category[] }) {
           </p>
           <div className="mt-8 space-y-1.5 text-[14px]">
             <p>{site.address}</p>
-            <p><a href={`tel:+${site.phoneRaw}`} className="hover:text-paper">{site.phone}</a></p>
+            {site.phones.map((p) => (
+              <p key={p.raw}>
+                <a href={`tel:+${p.raw}`} className="hover:text-paper">{p.label}</a>
+                <a href={`https://wa.me/${p.raw}`} target="_blank" rel="noreferrer" className="ml-3 text-[12px] text-paper/50 hover:text-paper">WhatsApp</a>
+              </p>
+            ))}
             <p><a href={`mailto:${site.email}`} className="hover:text-paper">{site.email}</a></p>
           </div>
         </div>

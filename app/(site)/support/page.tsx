@@ -44,7 +44,12 @@ export default function Support() {
             <p className="text-[11px] uppercase tracking-[0.28em] text-paper/60">Contact</p>
             <h2 className="h-display mt-3 text-[40px]">Talk to us</h2>
             <dl className="mt-8 space-y-5 text-[15px]">
-              <div><dt className="text-[12px] uppercase tracking-[0.2em] text-paper/50">Phone & WhatsApp</dt><dd className="mt-1"><a href={`tel:+${site.phoneRaw}`}>{site.phone}</a></dd></div>
+              <div><dt className="text-[12px] uppercase tracking-[0.2em] text-paper/50">Phone & WhatsApp</dt><dd className="mt-1 space-y-1">{site.phones.map((p) => (
+                <span key={p.raw} className="block">
+                  <a href={`tel:+${p.raw}`}>{p.label}</a>
+                  <a href={`https://wa.me/${p.raw}`} target="_blank" rel="noreferrer" className="ml-3 text-[12px] text-paper/60 underline underline-offset-4">WhatsApp</a>
+                </span>
+              ))}</dd></div>
               <div><dt className="text-[12px] uppercase tracking-[0.2em] text-paper/50">Email</dt><dd className="mt-1"><a href={`mailto:${site.email}`}>{site.email}</a></dd></div>
               <div><dt className="text-[12px] uppercase tracking-[0.2em] text-paper/50">Showroom</dt><dd className="mt-1">{site.address}</dd></div>
               <div><dt className="text-[12px] uppercase tracking-[0.2em] text-paper/50">Hours</dt><dd className="mt-1">{site.hours}</dd></div>

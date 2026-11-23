@@ -46,7 +46,12 @@ export default function Header({ announcement }: { announcement: string }) {
       <div className="bg-ink text-paper/80">
         <div className="container-x flex h-9 items-center justify-between text-[11px] tracking-[0.14em] uppercase">
           <span className="truncate">{announcement}</span>
-          <a href={`tel:+${site.phoneRaw}`} className="hidden md:block hover:text-paper">Call / WhatsApp {site.phone}</a>
+          <span className="hidden gap-2 md:flex">
+            Call / WhatsApp
+            {site.phones.map((p, i) => (
+              <a key={p.raw} href={`tel:+${p.raw}`} className="hover:text-paper">{i > 0 && "· "}{p.label}</a>
+            ))}
+          </span>
         </div>
       </div>
 

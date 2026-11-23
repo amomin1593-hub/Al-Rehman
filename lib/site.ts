@@ -6,6 +6,11 @@ export const site = {
     "All types of sanitary ware: sink bowls, kitchen faucets, Muslim showers, accessory sets and bathroom faucets. Gujranwala, Pakistan.",
   phone: "+92 323 8644433",
   phoneRaw: "923238644433",
+  // all contact numbers (shown in header, footer and support page)
+  phones: [
+    { label: "0323 8644433", raw: "923238644433" },
+    { label: "0370 6157560", raw: "923706157560" },
+  ],
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "923238644433",
   email: "zshani534@gmail.com",
   address: "Kangniwala Bypass, Gujranwala, Pakistan",
