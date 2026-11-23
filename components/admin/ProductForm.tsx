@@ -188,11 +188,12 @@ export default function ProductForm({ catalog, product }: { catalog: Catalog; pr
           <Card title="Photo">
             <ImageField
               folder="products"
+              aspect="aspect-[3/2]"
               value={f.image_url}
               onChange={(url) => set("image_url", url)}
               fallback={<ProductArt art={f.art} finish={finishHex} tone={f.tone} id="form-art" className="h-full w-full" />}
             />
-            <p className="mt-3 text-[12px] text-muted">JPG, PNG or WebP up to 8 MB. Square photos look best. Without a photo, the drawing below is shown.</p>
+            <p className="mt-3 text-[12px] text-muted">JPG, PNG or WebP up to 8 MB. Landscape 3:2 photos on a white background look best (e.g. 1536×1024). Without a photo, the drawing below is shown.</p>
             <div className="mt-4">
               <Field label="Drawing (when no photo)">
                 <select className={inputCls} value={f.art} onChange={(e) => set("art", e.target.value)}>

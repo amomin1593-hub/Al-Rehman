@@ -47,14 +47,14 @@ export default async function Home() {
       <section className="border-y border-line bg-white/40 py-20 md:py-24">
         <div className="container-x">
           <SectionHead eyebrow="Seven design families" title="Choose your collection" href="/collections" linkText="All collections" />
-          <div className="-mx-5 flex snap-x gap-5 overflow-x-auto px-5 pb-4 md:mx-0 md:grid md:grid-cols-7 md:overflow-visible md:px-0">
+          <div className="-mx-5 flex snap-x gap-5 overflow-x-auto px-5 pb-4 md:mx-0 md:grid md:grid-cols-4 lg:grid-cols-7 md:overflow-visible md:px-0">
             {collections.map((c) => {
               const p = heroOfCollection(c.slug);
               if (!p) return null;
               return (
                 <Link key={c.slug} href={`/collections/${c.slug}`} className="group w-40 shrink-0 snap-start text-center md:w-auto">
-                  <div className="mx-auto aspect-square overflow-hidden rounded-full">
-                    <div className="h-full transition-transform duration-700 group-hover:scale-110">
+                  <div className="mx-auto aspect-[3/2] overflow-hidden bg-white">
+                    <div className="h-full transition-transform duration-700 group-hover:scale-105">
                       <ProductImage product={p} idSuffix="col" />
                     </div>
                   </div>
@@ -105,12 +105,12 @@ export default async function Home() {
       {/* Shop by category */}
       <section className="container-x py-20 md:py-28">
         <SectionHead eyebrow="Shop by category" title="Everything for the bath & kitchen" />
-        <div className="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-6">
+        <div className="grid grid-cols-2 gap-5 md:grid-cols-3">
           {categories.map((c) => {
             const hero = heroOfCategory(c.slug);
             return (
             <Link key={c.slug} href={`/shop/${c.slug}`} className="group">
-              <div className="aspect-[3/4] overflow-hidden">
+              <div className="aspect-[3/2] overflow-hidden bg-white">
                 <div className="h-full transition-transform duration-700 group-hover:scale-105">
                   {hero ? <ProductImage product={hero} idSuffix="cat" /> : <div className="h-full bg-sand" />}
                 </div>

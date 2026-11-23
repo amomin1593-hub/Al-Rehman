@@ -26,7 +26,7 @@ export default function ProductDetail({ product: p }: { product: Product }) {
   const art = (tone: string, id: string) =>
     p.image_url ? (
       // eslint-disable-next-line @next/next/no-img-element
-      <img src={p.image_url} alt={p.name} className="h-full w-full object-cover" />
+      <img src={p.image_url} alt={p.name} className="h-full w-full bg-white object-contain" />
     ) : (
       <ProductArt art={p.art} finish={fin?.hex ?? FINISH_HEX.chrome} tone={tone || p.tone} id={id} className="h-full w-full" />
     );
@@ -58,12 +58,12 @@ export default function ProductDetail({ product: p }: { product: Product }) {
           <div className="flex flex-col-reverse gap-4 md:flex-row">
             <div className="flex gap-3 md:flex-col">
               {VIEW_TONES.map((t, i) => (
-                <button key={i} onClick={() => setView(i)} className={`h-20 w-20 shrink-0 overflow-hidden border transition ${view === i ? "border-ink" : "border-transparent opacity-70 hover:opacity-100"}`}>
+                <button key={i} onClick={() => setView(i)} className={`h-16 w-24 shrink-0 overflow-hidden border bg-white transition ${view === i ? "border-ink" : "border-transparent opacity-70 hover:opacity-100"}`}>
                   {art(t, `pd-t${i}-${finish}`)}
                 </button>
               ))}
             </div>
-            <div className="relative aspect-square flex-1 overflow-hidden bg-sand">
+            <div className="relative aspect-[3/2] flex-1 overflow-hidden bg-white">
               {art(VIEW_TONES[view], `pd-main-${view}-${finish}`)}
               {p.badge && <span className={`absolute left-4 top-4 px-3 py-1 text-[10px] uppercase tracking-[0.2em] ${p.badge === "Sale" ? "bg-sale text-paper" : "bg-paper"}`}>{p.badge}</span>}
             </div>

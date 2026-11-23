@@ -14,7 +14,7 @@ export default function ProductImage({
 }) {
   if (product.image_url) {
     // eslint-disable-next-line @next/next/no-img-element
-    return <img src={product.image_url} alt={product.name} loading="lazy" className={`h-full w-full object-cover ${className}`} />;
+    return <img src={product.image_url} alt={product.name} loading="lazy" className={`h-full w-full bg-white object-contain ${className}`} />;
   }
   const hex = FINISH_HEX[finish ?? product.finishes[0] ?? "chrome"] ?? FINISH_HEX.chrome;
   return (

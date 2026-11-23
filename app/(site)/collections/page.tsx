@@ -33,7 +33,7 @@ export default async function Collections() {
               </div>
               <div className="grid grid-cols-3 gap-3 md:col-span-6">
                 {items.slice(0, 3).map((p) => (
-                  <div key={p.id} className="aspect-square overflow-hidden">
+                  <div key={p.id} className="aspect-[3/2] overflow-hidden bg-white">
                     <ProductImage product={p} idSuffix="cl" />
                   </div>
                 ))}

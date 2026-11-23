@@ -130,7 +130,7 @@ export function ImageField({
       >
         {value ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={value} alt="" className="h-full w-full object-cover" />
+          <img src={value} alt="" className={`h-full w-full ${folder === "products" ? "bg-white object-contain" : "object-cover"}`} />
         ) : (
           fallback ?? <div className="grid h-full place-items-center text-[13px] text-muted">No image</div>
         )}
