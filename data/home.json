@@ -1,0 +1,71 @@
+{
+  "announcement": "Free delivery in Gujranwala on orders over Rs 25,000",
+  "slides": [
+    {
+      "art": "basin-oval",
+      "finish": "#c9ccd0",
+      "tone": "#dcd6cc",
+      "label": "Safa Collection",
+      "title": "Water, shaped with quiet precision.",
+      "text": "Counter-top bowls and wall-mounted spouts with slim, clean lines.",
+      "cta": "Discover Safa",
+      "href": "/collections/safa",
+      "image": "/home/hero-1.jpg"
+    },
+    {
+      "art": "basin-round",
+      "finish": "#c9ccd0",
+      "tone": "#dcd6cc",
+      "label": "Hand-made sink bowls",
+      "title": "Every size, made by hand.",
+      "text": "50×40, 55×45 and more. Counter-top bowls in ceramic and stone.",
+      "cta": "Shop sink bowls",
+      "href": "/shop/sink-bowls",
+      "image": "/home/hero-2.jpg"
+    },
+    {
+      "art": "shower-column",
+      "finish": "#2a2a2a",
+      "tone": "#dcd6cc",
+      "label": "Shower sets",
+      "title": "Rain, on your terms.",
+      "text": "Rain heads, hand showers and mixers in matte black, chrome and gold.",
+      "cta": "Shop showers",
+      "href": "/shop/showers",
+      "image": "/home/hero-3.jpg"
+    },
+    {
+      "art": "shower-head",
+      "finish": "#c9ccd0",
+      "tone": "#dcd6cc",
+      "label": "Shower columns",
+      "title": "A daily ritual, refined.",
+      "text": "Wide rainfall, easy-clean nozzles and a shelf that keeps essentials close.",
+      "cta": "Explore showers",
+      "href": "/shop/showers",
+      "image": "/home/hero-4.jpg"
+    }
+  ],
+  "tiles": [
+    {
+      "eyebrow": "Collections",
+      "title": "Bathroom",
+      "text": "Sink bowls, basin mixers, showers and Muslim showers for every bathroom.",
+      "href": "/shop/bathroom-faucets",
+      "art": "basin-rect",
+      "finish": "#c8a46a",
+      "tone": "#e4ded4",
+      "image": null
+    },
+    {
+      "eyebrow": "Collections",
+      "title": "Kitchen",
+      "text": "High-arc, pull-down and swivel kitchen faucets built for daily work.",
+      "href": "/shop/kitchen-faucets",
+      "art": "faucet-kitchen",
+      "finish": "#2a2a2a",
+      "tone": "#dedad3",
+      "image": null
+    }
+  ]
+}

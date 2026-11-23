@@ -1,0 +1,1082 @@
+{
+  "categories": [
+    {
+      "slug": "sink-bowls",
+      "name": "Sink Bowls",
+      "tagline": "Hand-made basins in every size",
+      "description": "Counter-top, wall-hung and hand-made sink bowls in ceramic, stone and steel."
+    },
+    {
+      "slug": "bathroom-faucets",
+      "name": "Bathroom Faucets",
+      "tagline": "Basin mixers and pillar taps",
+      "description": "Single-lever mixers, pillar cocks and tall basin taps for everyday precision."
+    },
+    {
+      "slug": "kitchen-faucets",
+      "name": "Kitchen Faucets",
+      "tagline": "Pull-out and swivel spouts",
+      "description": "High-arc, pull-down and wall-mounted kitchen taps built for daily work."
+    },
+    {
+      "slug": "muslim-showers",
+      "name": "Muslim Showers",
+      "tagline": "Hygiene sprays and sets",
+      "description": "Health faucets, shattaf sets and angle valves with leak-proof hoses."
+    },
+    {
+      "slug": "showers",
+      "name": "Showers",
+      "tagline": "Rain heads and shower mixers",
+      "description": "Overhead rain showers, hand showers and concealed mixers."
+    },
+    {
+      "slug": "accessories",
+      "name": "Accessory Sets",
+      "tagline": "Finishing touches",
+      "description": "Towel rails, robe hooks, soap dishes and complete bathroom accessory sets."
+    }
+  ],
+  "collections": [
+    {
+      "slug": "noor",
+      "name": "Noor",
+      "line": "Soft curves, light lines"
+    },
+    {
+      "slug": "safa",
+      "name": "Safa",
+      "line": "Pure, minimal geometry"
+    },
+    {
+      "slug": "indus",
+      "name": "Indus",
+      "line": "Flowing water forms"
+    },
+    {
+      "slug": "margalla",
+      "name": "Margalla",
+      "line": "Solid, architectural"
+    },
+    {
+      "slug": "zaviya",
+      "name": "Zaviya",
+      "line": "Sharp angles, slim profiles"
+    },
+    {
+      "slug": "chenab",
+      "name": "Chenab",
+      "line": "Classic heritage detailing"
+    },
+    {
+      "slug": "ravi",
+      "name": "Ravi",
+      "line": "Everyday essentials"
+    }
+  ],
+  "finishes": [
+    {
+      "slug": "chrome",
+      "name": "Chrome",
+      "hex": "#c9ccd0"
+    },
+    {
+      "slug": "brushed-nickel",
+      "name": "Brushed Nickel",
+      "hex": "#a8a49c"
+    },
+    {
+      "slug": "matte-black",
+      "name": "Matte Black",
+      "hex": "#2a2a2a"
+    },
+    {
+      "slug": "brushed-gold",
+      "name": "Brushed Gold",
+      "hex": "#c8a46a"
+    },
+    {
+      "slug": "gunmetal",
+      "name": "Gunmetal",
+      "hex": "#5b5d60"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "slug": "safa-counter-top-basin",
+      "sku": "ART-SIN-1001",
+      "name": "Safa Counter-top Basin",
+      "category": "sink-bowls",
+      "collection": "safa",
+      "price": 29700,
+      "compare_at": null,
+      "finishes": [],
+      "specs": {
+        "Size": "45x45 cm",
+        "Material": "Terrazzo stone",
+        "Mounting": "Counter-top",
+        "Warranty": "5 years"
+      },
+      "art": "basin-round",
+      "tone": "#e6e2da",
+      "badge": null,
+      "rating": 4.8,
+      "reviews": 27,
+      "stock": 40,
+      "featured": true,
+      "description": "A clean, generous bowl with a smooth glazed finish that resists stains and wipes clean in seconds. Sized for Pakistani vanities and pre-drilled for standard pop-up wastes.",
+      "image_url": "/products/catalog/sink-bowls-1.jpg"
+    },
+    {
+      "id": 2,
+      "slug": "margalla-hand-made-sink-bowl",
+      "sku": "ART-SIN-1002",
+      "name": "Margalla Hand-made Sink Bowl",
+      "category": "sink-bowls",
+      "collection": "margalla",
+      "price": 12300,
+      "compare_at": null,
+      "finishes": [],
+      "specs": {
+        "Size": "55x45 cm",
+        "Material": "Vitreous ceramic",
+        "Mounting": "Counter-top",
+        "Warranty": "5 years"
+      },
+      "art": "basin-rect",
+      "tone": "#efece6",
+      "badge": "New",
+      "rating": 4.5,
+      "reviews": 64,
+      "stock": 4,
+      "featured": false,
+      "description": "A clean, generous bowl with a smooth glazed finish that resists stains and wipes clean in seconds. Sized for Pakistani vanities and pre-drilled for standard pop-up wastes.",
+      "image_url": "/products/catalog/sink-bowls-2.jpg"
+    },
+    {
+      "id": 3,
+      "slug": "chenab-vessel-basin",
+      "sku": "ART-SIN-1003",
+      "name": "Chenab Vessel Basin",
+      "category": "sink-bowls",
+      "collection": "chenab",
+      "price": 12350,
+      "compare_at": null,
+      "finishes": [],
+      "specs": {
+        "Size": "50x40 cm",
+        "Material": "Vitreous ceramic",
+        "Mounting": "Semi-recessed",
+        "Warranty": "5 years"
+      },
+      "art": "basin-oval",
+      "tone": "#e3e0db",
+      "badge": "Best seller",
+      "rating": 5.0,
+      "reviews": 104,
+      "stock": 0,
+      "featured": false,
+      "description": "A clean, generous bowl with a smooth glazed finish that resists stains and wipes clean in seconds. Sized for Pakistani vanities and pre-drilled for standard pop-up wastes.",
+      "image_url": "/products/catalog/sink-bowls-3.jpg"
+    },
+    {
+      "id": 4,
+      "slug": "noor-wall-hung-basin",
+      "sku": "ART-SIN-1004",
+      "name": "Noor Wall-hung Basin",
+      "category": "sink-bowls",
+      "collection": "noor",
+      "price": 11550,
+      "compare_at": null,
+      "finishes": [],
+      "specs": {
+        "Size": "55x45 cm",
+        "Material": "Hand-made ceramic",
+        "Mounting": "Wall-hung",
+        "Warranty": "5 years"
+      },
+      "art": "basin-round",
+      "tone": "#e9e4dc",
+      "badge": null,
+      "rating": 4.6,
+      "reviews": 81,
+      "stock": 60,
+      "featured": false,
+      "description": "A clean, generous bowl with a smooth glazed finish that resists stains and wipes clean in seconds. Sized for Pakistani vanities and pre-drilled for standard pop-up wastes.",
+      "image_url": "/products/catalog/sink-bowls-4.jpg"
+    },
+    {
+      "id": 5,
+      "slug": "indus-oval-sink-bowl",
+      "sku": "ART-SIN-1005",
+      "name": "Indus Oval Sink Bowl",
+      "category": "sink-bowls",
+      "collection": "indus",
+      "price": 20350,
+      "compare_at": 24000,
+      "finishes": [],
+      "specs": {
+        "Size": "55x45 cm",
+        "Material": "Hand-made ceramic",
+        "Mounting": "Counter-top",
+        "Warranty": "5 years"
+      },
+      "art": "basin-rect",
+      "tone": "#e5e7e6",
+      "badge": "Sale",
+      "rating": 4.6,
+      "reviews": 19,
+      "stock": 80,
+      "featured": true,
+      "description": "A clean, generous bowl with a smooth glazed finish that resists stains and wipes clean in seconds. Sized for Pakistani vanities and pre-drilled for standard pop-up wastes.",
+      "image_url": "/products/catalog/sink-bowls-5.jpg"
+    },
+    {
+      "id": 6,
+      "slug": "zaviya-square-sink-bowl",
+      "sku": "ART-SIN-1006",
+      "name": "Zaviya Square Sink Bowl",
+      "category": "sink-bowls",
+      "collection": "zaviya",
+      "price": 22000,
+      "compare_at": null,
+      "finishes": [],
+      "specs": {
+        "Size": "45x45 cm",
+        "Material": "Hand-made ceramic",
+        "Mounting": "Wall-hung",
+        "Warranty": "5 years"
+      },
+      "art": "basin-oval",
+      "tone": "#ece8e1",
+      "badge": "Best seller",
+      "rating": 4.9,
+      "reviews": 95,
+      "stock": 25,
+      "featured": false,
+      "description": "A clean, generous bowl with a smooth glazed finish that resists stains and wipes clean in seconds. Sized for Pakistani vanities and pre-drilled for standard pop-up wastes.",
+      "image_url": "/products/catalog/sink-bowls-6.jpg"
+    },
+    {
+      "id": 7,
+      "slug": "noor-ceramic-basin-mixer",
+      "sku": "ART-BAT-1007",
+      "name": "Noor Ceramic Basin Mixer",
+      "category": "bathroom-faucets",
+      "collection": "noor",
+      "price": 12400,
+      "compare_at": null,
+      "finishes": [
+        "chrome",
+        "matte-black"
+      ],
+      "specs": {
+        "Spout reach": "160 mm",
+        "Flow rate": "6 L/min",
+        "Cartridge": "35 mm ceramic disc",
+        "Material": "Lead-free brass",
+        "Warranty": "10 years"
+      },
+      "art": "faucet-basin",
+      "tone": "#e6e2da",
+      "badge": "New",
+      "rating": 4.4,
+      "reviews": 21,
+      "stock": 4,
+      "featured": true,
+      "description": "Solid lead-free brass body with a smooth ceramic cartridge and an aerated, splash-free flow. A quiet lever with precise hot/cold control.",
+      "image_url": "/products/catalog/bathroom-faucets-1.jpg"
+    },
+    {
+      "id": 8,
+      "slug": "indus-tall-basin-mixer",
+      "sku": "ART-BAT-1008",
+      "name": "Indus Tall Basin Mixer",
+      "category": "bathroom-faucets",
+      "collection": "indus",
+      "price": 23300,
+      "compare_at": null,
+      "finishes": [
+        "chrome",
+        "brushed-gold",
+        "gunmetal"
+      ],
+      "specs": {
+        "Spout reach": "110 mm",
+        "Flow rate": "8 L/min",
+        "Cartridge": "35 mm ceramic disc",
+        "Material": "Lead-free brass",
+        "Warranty": "5 years"
+      },
+      "art": "faucet-tall",
+      "tone": "#efece6",
+      "badge": "Best seller",
+      "rating": 4.6,
+      "reviews": 83,
+      "stock": 40,
+      "featured": false,
+      "description": "Solid lead-free brass body with a smooth ceramic cartridge and an aerated, splash-free flow. A quiet lever with precise hot/cold control.",
+      "image_url": "/products/catalog/bathroom-faucets-2.jpg"
+    },
+    {
+      "id": 9,
+      "slug": "zaviya-gold-waterfall-mixer",
+      "sku": "ART-BAT-1009",
+      "name": "Zaviya Gold Waterfall Mixer",
+      "category": "bathroom-faucets",
+      "collection": "zaviya",
+      "price": 26000,
+      "compare_at": null,
+      "finishes": [
+        "chrome",
+        "gunmetal",
+        "brushed-nickel"
+      ],
+      "specs": {
+        "Spout reach": "160 mm",
+        "Flow rate": "8 L/min",
+        "Cartridge": "35 mm ceramic disc",
+        "Material": "Lead-free brass",
+        "Warranty": "10 years"
+      },
+      "art": "faucet-pillar",
+      "tone": "#e3e0db",
+      "badge": null,
+      "rating": 4.2,
+      "reviews": 82,
+      "stock": 80,
+      "featured": false,
+      "description": "Solid lead-free brass body with a smooth ceramic cartridge and an aerated, splash-free flow. A quiet lever with precise hot/cold control.",
+      "image_url": "/products/catalog/bathroom-faucets-3.jpg"
+    },
+    {
+      "id": 10,
+      "slug": "ravi-waterfall-basin-mixer",
+      "sku": "ART-BAT-1010",
+      "name": "Ravi Waterfall Basin Mixer",
+      "category": "bathroom-faucets",
+      "collection": "ravi",
+      "price": 28800,
+      "compare_at": null,
+      "finishes": [
+        "brushed-gold",
+        "matte-black",
+        "chrome"
+      ],
+      "specs": {
+        "Spout reach": "160 mm",
+        "Flow rate": "6 L/min",
+        "Cartridge": "35 mm ceramic disc",
+        "Material": "Lead-free brass",
+        "Warranty": "5 years"
+      },
+      "art": "faucet-basin",
+      "tone": "#e9e4dc",
+      "badge": "Best seller",
+      "rating": 4.2,
+      "reviews": 18,
+      "stock": 25,
+      "featured": false,
+      "description": "Solid lead-free brass body with a smooth ceramic cartridge and an aerated, splash-free flow. A quiet lever with precise hot/cold control.",
+      "image_url": "/products/catalog/bathroom-faucets-4.jpg"
+    },
+    {
+      "id": 11,
+      "slug": "safa-cascade-basin-mixer",
+      "sku": "ART-BAT-1011",
+      "name": "Safa Cascade Basin Mixer",
+      "category": "bathroom-faucets",
+      "collection": "safa",
+      "price": 10750,
+      "compare_at": null,
+      "finishes": [
+        "brushed-gold",
+        "gunmetal",
+        "chrome"
+      ],
+      "specs": {
+        "Spout reach": "125 mm",
+        "Flow rate": "6 L/min",
+        "Cartridge": "35 mm ceramic disc",
+        "Material": "Lead-free brass",
+        "Warranty": "7 years"
+      },
+      "art": "faucet-tall",
+      "tone": "#e5e7e6",
+      "badge": "Best seller",
+      "rating": 4.4,
+      "reviews": 38,
+      "stock": 40,
+      "featured": false,
+      "description": "Solid lead-free brass body with a smooth ceramic cartridge and an aerated, splash-free flow. A quiet lever with precise hot/cold control.",
+      "image_url": "/products/catalog/bathroom-faucets-5.jpg"
+    },
+    {
+      "id": 12,
+      "slug": "margalla-pull-out-basin-mixer",
+      "sku": "ART-BAT-1012",
+      "name": "Margalla Pull-out Basin Mixer",
+      "category": "bathroom-faucets",
+      "collection": "margalla",
+      "price": 15600,
+      "compare_at": null,
+      "finishes": [
+        "brushed-gold",
+        "brushed-nickel",
+        "chrome"
+      ],
+      "specs": {
+        "Spout reach": "110 mm",
+        "Flow rate": "5 L/min",
+        "Cartridge": "35 mm ceramic disc",
+        "Material": "Lead-free brass",
+        "Warranty": "5 years"
+      },
+      "art": "faucet-pillar",
+      "tone": "#ece8e1",
+      "badge": null,
+      "rating": 4.7,
+      "reviews": 6,
+      "stock": 60,
+      "featured": false,
+      "description": "Solid lead-free brass body with a smooth ceramic cartridge and an aerated, splash-free flow. A quiet lever with precise hot/cold control.",
+      "image_url": "/products/catalog/bathroom-faucets-6.jpg"
+    },
+    {
+      "id": 13,
+      "slug": "ravi-kitchen-sink-mixer",
+      "sku": "ART-KIT-1013",
+      "name": "Ravi Kitchen Sink Mixer",
+      "category": "kitchen-faucets",
+      "collection": "ravi",
+      "price": 21450,
+      "compare_at": null,
+      "finishes": [
+        "chrome",
+        "brushed-gold"
+      ],
+      "specs": {
+        "Spout height": "310 mm",
+        "Swivel": "360°",
+        "Spray modes": "1",
+        "Material": "Lead-free brass",
+        "Warranty": "5 years"
+      },
+      "art": "faucet-kitchen",
+      "tone": "#e6e2da",
+      "badge": "New",
+      "rating": 4.9,
+      "reviews": 103,
+      "stock": 40,
+      "featured": true,
+      "description": "Built for busy kitchens: a high spout that clears large pots, a firm swivel and a lever that stays light even after years of use.",
+      "image_url": "/products/catalog/kitchen-faucets-1.jpg"
+    },
+    {
+      "id": 14,
+      "slug": "safa-pull-down-kitchen-tap",
+      "sku": "ART-KIT-1014",
+      "name": "Safa Pull-down Kitchen Tap",
+      "category": "kitchen-faucets",
+      "collection": "safa",
+      "price": 35650,
+      "compare_at": null,
+      "finishes": [
+        "brushed-gold",
+        "chrome",
+        "gunmetal"
+      ],
+      "specs": {
+        "Spout height": "220 mm",
+        "Swivel": "180°",
+        "Spray modes": "2",
+        "Material": "Lead-free brass",
+        "Warranty": "5 years"
+      },
+      "art": "faucet-kitchen-pull",
+      "tone": "#efece6",
+      "badge": null,
+      "rating": 4.4,
+      "reviews": 16,
+      "stock": 4,
+      "featured": true,
+      "description": "Built for busy kitchens: a high spout that clears large pots, a firm swivel and a lever that stays light even after years of use.",
+      "image_url": "/products/catalog/kitchen-faucets-2.jpg"
+    },
+    {
+      "id": 15,
+      "slug": "margalla-wall-kitchen-mixer",
+      "sku": "ART-KIT-1015",
+      "name": "Margalla Wall Kitchen Mixer",
+      "category": "kitchen-faucets",
+      "collection": "margalla",
+      "price": 19400,
+      "compare_at": null,
+      "finishes": [
+        "gunmetal",
+        "chrome",
+        "brushed-gold"
+      ],
+      "specs": {
+        "Spout height": "260 mm",
+        "Swivel": "360°",
+        "Spray modes": "1",
+        "Material": "Lead-free brass",
+        "Warranty": "7 years"
+      },
+      "art": "faucet-kitchen",
+      "tone": "#e3e0db",
+      "badge": null,
+      "rating": 4.6,
+      "reviews": 124,
+      "stock": 4,
+      "featured": true,
+      "description": "Built for busy kitchens: a high spout that clears large pots, a firm swivel and a lever that stays light even after years of use.",
+      "image_url": "/products/catalog/kitchen-faucets-3.jpg"
+    },
+    {
+      "id": 16,
+      "slug": "chenab-swivel-sink-cock",
+      "sku": "ART-KIT-1016",
+      "name": "Chenab Swivel Sink Cock",
+      "category": "kitchen-faucets",
+      "collection": "chenab",
+      "price": 41500,
+      "compare_at": null,
+      "finishes": [
+        "chrome",
+        "gunmetal",
+        "brushed-nickel"
+      ],
+      "specs": {
+        "Spout height": "220 mm",
+        "Swivel": "180°",
+        "Spray modes": "1",
+        "Material": "Lead-free brass",
+        "Warranty": "7 years"
+      },
+      "art": "faucet-kitchen-pull",
+      "tone": "#e9e4dc",
+      "badge": null,
+      "rating": 4.5,
+      "reviews": 44,
+      "stock": 60,
+      "featured": true,
+      "description": "Built for busy kitchens: a high spout that clears large pots, a firm swivel and a lever that stays light even after years of use.",
+      "image_url": "/products/catalog/kitchen-faucets-4.jpg"
+    },
+    {
+      "id": 17,
+      "slug": "noor-pro-spring-kitchen-tap",
+      "sku": "ART-KIT-1017",
+      "name": "Noor Pro Spring Kitchen Tap",
+      "category": "kitchen-faucets",
+      "collection": "noor",
+      "price": 44100,
+      "compare_at": null,
+      "finishes": [
+        "gunmetal",
+        "chrome",
+        "matte-black",
+        "brushed-nickel"
+      ],
+      "specs": {
+        "Spout height": "220 mm",
+        "Swivel": "360°",
+        "Spray modes": "3",
+        "Material": "Lead-free brass",
+        "Warranty": "7 years"
+      },
+      "art": "faucet-kitchen",
+      "tone": "#e5e7e6",
+      "badge": null,
+      "rating": 4.4,
+      "reviews": 60,
+      "stock": 60,
+      "featured": false,
+      "description": "Built for busy kitchens: a high spout that clears large pots, a firm swivel and a lever that stays light even after years of use.",
+      "image_url": "/products/catalog/kitchen-faucets-5.jpg"
+    },
+    {
+      "id": 18,
+      "slug": "zaviya-muslim-shower-set",
+      "sku": "ART-MUS-1018",
+      "name": "Zaviya Muslim Shower Set",
+      "category": "muslim-showers",
+      "collection": "zaviya",
+      "price": 10050,
+      "compare_at": null,
+      "finishes": [
+        "chrome",
+        "brushed-nickel"
+      ],
+      "specs": {
+        "Hose": "1.2 m stainless braided",
+        "Includes": "Spray, hose, holder, angle valve",
+        "Body": "ABS chrome",
+        "Warranty": "2 years"
+      },
+      "art": "bidet-spray",
+      "tone": "#ece8e1",
+      "badge": "Best seller",
+      "rating": 4.5,
+      "reviews": 10,
+      "stock": 0,
+      "featured": true,
+      "description": "A comfortable spray with a soft, even flow and a braided hose that will not kink. Wall holder and fittings included.",
+      "image_url": "/products/catalog/muslim-showers-1.jpg"
+    },
+    {
+      "id": 19,
+      "slug": "ravi-angle-valve",
+      "sku": "ART-MUS-1019",
+      "name": "Ravi Angle Valve",
+      "category": "muslim-showers",
+      "collection": "ravi",
+      "price": 6400,
+      "compare_at": null,
+      "finishes": [
+        "chrome",
+        "matte-black"
+      ],
+      "specs": {
+        "Hose": "1.5 m stainless braided",
+        "Includes": "Spray, hose, holder, angle valve",
+        "Body": "Solid brass",
+        "Warranty": "2 years"
+      },
+      "art": "bidet-spray",
+      "tone": "#e6e2da",
+      "badge": null,
+      "rating": 4.2,
+      "reviews": 123,
+      "stock": 25,
+      "featured": false,
+      "description": "A comfortable spray with a soft, even flow and a braided hose that will not kink. Wall holder and fittings included.",
+      "image_url": "/products/catalog/muslim-showers-2.jpg"
+    },
+    {
+      "id": 20,
+      "slug": "safa-gold-angle-valve",
+      "sku": "ART-MUS-1020",
+      "name": "Safa Gold Angle Valve",
+      "category": "muslim-showers",
+      "collection": "safa",
+      "price": 9700,
+      "compare_at": null,
+      "finishes": [
+        "chrome",
+        "brushed-gold",
+        "matte-black",
+        "brushed-nickel"
+      ],
+      "specs": {
+        "Hose": "1.2 m stainless braided",
+        "Includes": "Spray, hose, holder",
+        "Body": "Solid brass",
+        "Warranty": "5 years"
+      },
+      "art": "bidet-spray",
+      "tone": "#efece6",
+      "badge": null,
+      "rating": 4.5,
+      "reviews": 48,
+      "stock": 40,
+      "featured": false,
+      "description": "A comfortable spray with a soft, even flow and a braided hose that will not kink. Wall holder and fittings included.",
+      "image_url": "/products/catalog/muslim-showers-3.jpg"
+    },
+    {
+      "id": 21,
+      "slug": "margalla-chrome-angle-valve",
+      "sku": "ART-MUS-1021",
+      "name": "Margalla Chrome Angle Valve",
+      "category": "muslim-showers",
+      "collection": "margalla",
+      "price": 7250,
+      "compare_at": 8550,
+      "finishes": [
+        "brushed-gold",
+        "gunmetal",
+        "brushed-nickel",
+        "chrome"
+      ],
+      "specs": {
+        "Hose": "1.2 m stainless braided",
+        "Includes": "Spray, hose, holder",
+        "Body": "ABS chrome",
+        "Warranty": "2 years"
+      },
+      "art": "bidet-spray",
+      "tone": "#e3e0db",
+      "badge": "Sale",
+      "rating": 4.2,
+      "reviews": 122,
+      "stock": 80,
+      "featured": true,
+      "description": "A comfortable spray with a soft, even flow and a braided hose that will not kink. Wall holder and fittings included.",
+      "image_url": "/products/catalog/muslim-showers-4.jpg"
+    },
+    {
+      "id": 22,
+      "slug": "chenab-heavy-brass-angle-valve",
+      "sku": "ART-MUS-1022",
+      "name": "Chenab Heavy Brass Angle Valve",
+      "category": "muslim-showers",
+      "collection": "chenab",
+      "price": 11550,
+      "compare_at": null,
+      "finishes": [
+        "matte-black",
+        "brushed-nickel",
+        "gunmetal",
+        "chrome"
+      ],
+      "specs": {
+        "Hose": "1.2 m stainless braided",
+        "Includes": "Spray, hose, holder",
+        "Body": "ABS chrome",
+        "Warranty": "5 years"
+      },
+      "art": "bidet-spray",
+      "tone": "#e9e4dc",
+      "badge": null,
+      "rating": 4.5,
+      "reviews": 52,
+      "stock": 25,
+      "featured": true,
+      "description": "A comfortable spray with a soft, even flow and a braided hose that will not kink. Wall holder and fittings included.",
+      "image_url": "/products/catalog/muslim-showers-5.jpg"
+    },
+    {
+      "id": 23,
+      "slug": "indus-square-rain-shower-set",
+      "sku": "ART-SHO-1023",
+      "name": "Indus Square Rain Shower Set",
+      "category": "showers",
+      "collection": "indus",
+      "price": 21450,
+      "compare_at": null,
+      "finishes": [
+        "chrome",
+        "matte-black"
+      ],
+      "specs": {
+        "Head size": "300 mm",
+        "Spray modes": "5",
+        "Anti-limescale": "Silicone nozzles",
+        "Warranty": "7 years"
+      },
+      "art": "shower-head",
+      "tone": "#e5e7e6",
+      "badge": null,
+      "rating": 4.2,
+      "reviews": 93,
+      "stock": 60,
+      "featured": true,
+      "description": "Wide, even rainfall with easy-clean silicone nozzles. Designed to perform well even at low water pressure.",
+      "image_url": "/products/catalog/showers-1.jpg"
+    },
+    {
+      "id": 24,
+      "slug": "zaviya-shower-column",
+      "sku": "ART-SHO-1024",
+      "name": "Zaviya Shower Column",
+      "category": "showers",
+      "collection": "zaviya",
+      "price": 50900,
+      "compare_at": null,
+      "finishes": [
+        "brushed-gold",
+        "brushed-nickel",
+        "matte-black",
+        "chrome"
+      ],
+      "specs": {
+        "Head size": "200 mm",
+        "Spray modes": "3",
+        "Anti-limescale": "Silicone nozzles",
+        "Warranty": "5 years"
+      },
+      "art": "shower-column",
+      "tone": "#ece8e1",
+      "badge": "Best seller",
+      "rating": 4.1,
+      "reviews": 41,
+      "stock": 12,
+      "featured": true,
+      "description": "Wide, even rainfall with easy-clean silicone nozzles. Designed to perform well even at low water pressure.",
+      "image_url": "/products/catalog/showers-2.jpg"
+    },
+    {
+      "id": 25,
+      "slug": "ravi-gold-shower-mixer-set",
+      "sku": "ART-SHO-1025",
+      "name": "Ravi Gold Shower Mixer Set",
+      "category": "showers",
+      "collection": "ravi",
+      "price": 48050,
+      "compare_at": null,
+      "finishes": [
+        "chrome",
+        "matte-black",
+        "brushed-gold",
+        "brushed-nickel"
+      ],
+      "specs": {
+        "Head size": "200 mm",
+        "Spray modes": "5",
+        "Anti-limescale": "Silicone nozzles",
+        "Warranty": "5 years"
+      },
+      "art": "shower-head",
+      "tone": "#e6e2da",
+      "badge": null,
+      "rating": 4.3,
+      "reviews": 13,
+      "stock": 4,
+      "featured": false,
+      "description": "Wide, even rainfall with easy-clean silicone nozzles. Designed to perform well even at low water pressure.",
+      "image_url": "/products/catalog/showers-3.jpg"
+    },
+    {
+      "id": 26,
+      "slug": "safa-hand-shower-rail",
+      "sku": "ART-SHO-1026",
+      "name": "Safa Hand Shower Rail",
+      "category": "showers",
+      "collection": "safa",
+      "price": 44300,
+      "compare_at": 52250,
+      "finishes": [
+        "chrome",
+        "matte-black"
+      ],
+      "specs": {
+        "Head size": "250 mm",
+        "Spray modes": "5",
+        "Anti-limescale": "Silicone nozzles",
+        "Warranty": "7 years"
+      },
+      "art": "shower-column",
+      "tone": "#efece6",
+      "badge": "Sale",
+      "rating": 4.5,
+      "reviews": 139,
+      "stock": 60,
+      "featured": false,
+      "description": "Wide, even rainfall with easy-clean silicone nozzles. Designed to perform well even at low water pressure.",
+      "image_url": "/products/catalog/showers-4.jpg"
+    },
+    {
+      "id": 27,
+      "slug": "margalla-thermostatic-shower-set",
+      "sku": "ART-SHO-1027",
+      "name": "Margalla Thermostatic Shower Set",
+      "category": "showers",
+      "collection": "margalla",
+      "price": 23750,
+      "compare_at": null,
+      "finishes": [
+        "chrome",
+        "brushed-nickel",
+        "brushed-gold"
+      ],
+      "specs": {
+        "Head size": "250 mm",
+        "Spray modes": "3",
+        "Anti-limescale": "Silicone nozzles",
+        "Warranty": "5 years"
+      },
+      "art": "shower-head",
+      "tone": "#e3e0db",
+      "badge": "New",
+      "rating": 4.5,
+      "reviews": 21,
+      "stock": 80,
+      "featured": false,
+      "description": "Wide, even rainfall with easy-clean silicone nozzles. Designed to perform well even at low water pressure.",
+      "image_url": "/products/catalog/showers-5.jpg"
+    },
+    {
+      "id": 28,
+      "slug": "noor-6-piece-accessory-set",
+      "sku": "ART-ACC-1028",
+      "name": "Noor 6-Piece Accessory Set",
+      "category": "accessories",
+      "collection": "noor",
+      "price": 3900,
+      "compare_at": 4600,
+      "finishes": [
+        "chrome",
+        "brushed-nickel",
+        "matte-black"
+      ],
+      "specs": {
+        "Pieces": "4",
+        "Material": "SS 304",
+        "Fixing": "Concealed screws",
+        "Warranty": "3 years"
+      },
+      "art": "accessory-set",
+      "tone": "#e9e4dc",
+      "badge": "Sale",
+      "rating": 4.3,
+      "reviews": 38,
+      "stock": 60,
+      "featured": true,
+      "description": "Matching bathroom hardware with concealed fixings and a finish that holds up to humidity.",
+      "image_url": "/products/catalog/accessories-1.jpg"
+    },
+    {
+      "id": 29,
+      "slug": "indus-towel-rail-and-hook",
+      "sku": "ART-ACC-1029",
+      "name": "Indus Towel Rail & Hook",
+      "category": "accessories",
+      "collection": "indus",
+      "price": 8700,
+      "compare_at": null,
+      "finishes": [
+        "chrome",
+        "gunmetal"
+      ],
+      "specs": {
+        "Pieces": "2",
+        "Material": "SS 304",
+        "Fixing": "Concealed screws",
+        "Warranty": "3 years"
+      },
+      "art": "towel-rail",
+      "tone": "#e5e7e6",
+      "badge": null,
+      "rating": 4.7,
+      "reviews": 134,
+      "stock": 40,
+      "featured": false,
+      "description": "Matching bathroom hardware with concealed fixings and a finish that holds up to humidity.",
+      "image_url": "/products/catalog/accessories-2.jpg"
+    },
+    {
+      "id": 30,
+      "slug": "zaviya-towel-ring",
+      "sku": "ART-ACC-1030",
+      "name": "Zaviya Towel Ring",
+      "category": "accessories",
+      "collection": "zaviya",
+      "price": 7900,
+      "compare_at": null,
+      "finishes": [
+        "matte-black",
+        "chrome"
+      ],
+      "specs": {
+        "Pieces": "4",
+        "Material": "Solid brass",
+        "Fixing": "Concealed screws",
+        "Warranty": "3 years"
+      },
+      "art": "accessory-set",
+      "tone": "#ece8e1",
+      "badge": "New",
+      "rating": 4.7,
+      "reviews": 101,
+      "stock": 40,
+      "featured": false,
+      "description": "Matching bathroom hardware with concealed fixings and a finish that holds up to humidity.",
+      "image_url": "/products/catalog/accessories-3.jpg"
+    },
+    {
+      "id": 31,
+      "slug": "ravi-soap-dispenser",
+      "sku": "ART-ACC-1031",
+      "name": "Ravi Soap Dispenser",
+      "category": "accessories",
+      "collection": "ravi",
+      "price": 11200,
+      "compare_at": null,
+      "finishes": [
+        "chrome",
+        "brushed-nickel"
+      ],
+      "specs": {
+        "Pieces": "1",
+        "Material": "SS 304",
+        "Fixing": "Concealed screws",
+        "Warranty": "3 years"
+      },
+      "art": "towel-rail",
+      "tone": "#e6e2da",
+      "badge": null,
+      "rating": 4.3,
+      "reviews": 49,
+      "stock": 25,
+      "featured": false,
+      "description": "Matching bathroom hardware with concealed fixings and a finish that holds up to humidity.",
+      "image_url": "/products/catalog/accessories-4.jpg"
+    },
+    {
+      "id": 32,
+      "slug": "safa-paper-holder",
+      "sku": "ART-ACC-1032",
+      "name": "Safa Paper Holder",
+      "category": "accessories",
+      "collection": "safa",
+      "price": 15350,
+      "compare_at": null,
+      "finishes": [
+        "matte-black",
+        "brushed-gold",
+        "chrome",
+        "brushed-nickel"
+      ],
+      "specs": {
+        "Pieces": "4",
+        "Material": "SS 304",
+        "Fixing": "Concealed screws",
+        "Warranty": "3 years"
+      },
+      "art": "accessory-set",
+      "tone": "#efece6",
+      "badge": null,
+      "rating": 4.2,
+      "reviews": 49,
+      "stock": 40,
+      "featured": false,
+      "description": "Matching bathroom hardware with concealed fixings and a finish that holds up to humidity.",
+      "image_url": "/products/catalog/accessories-5.jpg"
+    },
+    {
+      "id": 33,
+      "slug": "margalla-glass-corner-shelf",
+      "sku": "ART-ACC-1033",
+      "name": "Margalla Glass Corner Shelf",
+      "category": "accessories",
+      "collection": "margalla",
+      "price": 10300,
+      "compare_at": null,
+      "finishes": [
+        "chrome",
+        "matte-black",
+        "gunmetal",
+        "brushed-gold"
+      ],
+      "specs": {
+        "Pieces": "1",
+        "Material": "Solid brass",
+        "Fixing": "Concealed screws",
+        "Warranty": "3 years"
+      },
+      "art": "towel-rail",
+      "tone": "#e3e0db",
+      "badge": null,
+      "rating": 4.5,
+      "reviews": 89,
+      "stock": 60,
+      "featured": false,
+      "description": "Matching bathroom hardware with concealed fixings and a finish that holds up to humidity.",
+      "image_url": "/products/catalog/accessories-6.jpg"
+    }
+  ]
+}

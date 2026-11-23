@@ -1,0 +1,154 @@
+"use client";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { ArrowDown, ArrowUp, Plus, Trash2, ExternalLink } from "lucide-react";
+import ProductArt from "@/components/ProductArt";
+import { api, Card, Field, ImageField, inputCls, PageTitle, Status, useStatus } from "./ui";
+import type { HomeContent, Slide, Tile } from "@/lib/home";
+
+const blankSlide: Slide = {
+  label: "New collection",
+  title: "Your headline here.",
+  text: "A short line about this slide.",
+  cta: "Shop now",
+  href: "/shop",
+  image: null,
+  art: "faucet-basin",
+  finish: "#c9ccd0",
+  tone: "#dcd6cc",
+};
+
+export default function HomeEditor({ initial }: { initial: HomeContent }) {
+  const router = useRouter();
+  const [h, setH] = useState<HomeContent>(initial);
+  const { state, run, busy } = useStatus();
+  const [dirty, setDirty] = useState(false);
+
+  const update = (next: HomeContent) => {
+    setH(next);
+    setDirty(true);
+  };
+  const setSlide = (i: number, patch: Partial<Slide>) => update({ ...h, slides: h.slides.map((s, j) => (j === i ? { ...s, ...patch } : s)) });
+  const setTile = (i: number, patch: Partial<Tile>) => update({ ...h, tiles: h.tiles.map((t, j) => (j === i ? { ...t, ...patch } : t)) });
+  const move = (i: number, d: -1 | 1) => {
+    const s = [...h.slides];
+    const j = i + d;
+    if (j < 0 || j >= s.length) return;
+    [s[i], s[j]] = [s[j], s[i]];
+    update({ ...h, slides: s });
+  };
+
+  const save = () =>
+    run(async () => {
+      await api("/api/admin/home", "PUT", h);
+      setDirty(false);
+      router.refresh();
+    });
+
+  return (
+    <>
+      <PageTitle
+        title="Home page"
+        sub="Banner slides, the two big tiles and the top announcement bar."
+        action={
+          <a href="/" target="_blank" className="flex items-center gap-2 text-[13px] text-muted hover:text-ink">
+            View home page <ExternalLink size={14} />
+          </a>
+        }
+      />
+
+      <div className="space-y-6 pb-28">
+        <Card title="Announcement bar">
+          <input className={inputCls} value={h.announcement} onChange={(e) => update({ ...h, announcement: e.target.value })} />
+        </Card>
+
+        <Card
+          title={`Banner slides (${h.slides.length})`}
+          action={
+            <button type="button" onClick={() => update({ ...h, slides: [...h.slides, { ...blankSlide }] })} className="flex items-center gap-1 text-[12px] text-muted hover:text-ink">
+              <Plus size={13} /> Add slide
+            </button>
+          }
+        >
+          <div className="space-y-6">
+            {h.slides.map((s, i) => (
+              <div key={i} className="grid gap-5 border-b border-line pb-6 last:border-0 last:pb-0 md:grid-cols-[300px_1fr]">
+                <div>
+                  <ImageField
+                    folder="home"
+                    aspect="aspect-video"
+                    value={s.image}
+                    onChange={(url) => setSlide(i, { image: url })}
+                    fallback={<ProductArt art={s.art} finish={s.finish} tone={s.tone} id={`he${i}`} className="h-full w-full" />}
+                  />
+                  <p className="mt-2 text-[12px] text-muted">Wide photo, at least 1920×1080. Text sits on the left.</p>
+                </div>
+                <div className="grid gap-3 md:grid-cols-2">
+                  <div className="flex items-center justify-between md:col-span-2">
+                    <span className="text-[12px] uppercase tracking-[0.18em]">Slide {i + 1}</span>
+                    <span className="flex gap-1">
+                      <IconBtn onClick={() => move(i, -1)} label="Move up" disabled={i === 0}><ArrowUp size={14} /></IconBtn>
+                      <IconBtn onClick={() => move(i, 1)} label="Move down" disabled={i === h.slides.length - 1}><ArrowDown size={14} /></IconBtn>
+                      <IconBtn
+                        onClick={() => h.slides.length > 1 && confirm("Remove this slide?") && update({ ...h, slides: h.slides.filter((_, j) => j !== i) })}
+                        label="Remove slide"
+                        disabled={h.slides.length === 1}
+                        danger
+                      >
+                        <Trash2 size={14} />
+                      </IconBtn>
+                    </span>
+                  </div>
+                  <Field label="Small label"><input className={inputCls} value={s.label} onChange={(e) => setSlide(i, { label: e.target.value })} /></Field>
+                  <Field label="Button text"><input className={inputCls} value={s.cta} onChange={(e) => setSlide(i, { cta: e.target.value })} /></Field>
+                  <Field label="Headline" wide><input className={inputCls} value={s.title} onChange={(e) => setSlide(i, { title: e.target.value })} /></Field>
+                  <Field label="Text" wide><input className={inputCls} value={s.text} onChange={(e) => setSlide(i, { text: e.target.value })} /></Field>
+                  <Field label="Button link" hint="e.g. /shop/kitchen-faucets or /collections/safa" wide>
+                    <input className={inputCls} value={s.href} onChange={(e) => setSlide(i, { href: e.target.value })} />
+                  </Field>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Card>
+
+        <Card title="Big tiles (under the banner)">
+          <div className="grid gap-8 md:grid-cols-2">
+            {h.tiles.map((t, i) => (
+              <div key={i} className="space-y-3">
+                <ImageField
+                  folder="home"
+                  aspect="aspect-[5/6]"
+                  value={t.image}
+                  onChange={(url) => setTile(i, { image: url })}
+                  fallback={<ProductArt art={t.art} finish={t.finish} tone={t.tone} id={`ht${i}`} className="h-full w-full" />}
+                />
+                <Field label="Small label"><input className={inputCls} value={t.eyebrow} onChange={(e) => setTile(i, { eyebrow: e.target.value })} /></Field>
+                <Field label="Title"><input className={inputCls} value={t.title} onChange={(e) => setTile(i, { title: e.target.value })} /></Field>
+                <Field label="Text"><input className={inputCls} value={t.text} onChange={(e) => setTile(i, { text: e.target.value })} /></Field>
+                <Field label="Link"><input className={inputCls} value={t.href} onChange={(e) => setTile(i, { href: e.target.value })} /></Field>
+              </div>
+            ))}
+          </div>
+        </Card>
+      </div>
+
+      <div className="fixed inset-x-0 bottom-0 z-20 border-t border-line bg-white/95 backdrop-blur lg:left-64">
+        <div className="mx-auto flex max-w-6xl items-center justify-end gap-4 px-5 py-4 md:px-10">
+          <Status state={state} />
+          {dirty && state.kind !== "busy" && <span className="text-[13px] text-muted">Unsaved changes</span>}
+          <button onClick={save} disabled={busy || !dirty} className="btn-dark py-3">Save home page</button>
+        </div>
+      </div>
+    </>
+  );
+}
+
+function IconBtn({ children, onClick, label, disabled, danger }: { children: React.ReactNode; onClick: () => void; label: string; disabled?: boolean; danger?: boolean }) {
+  return (
+    <button type="button" onClick={onClick} disabled={disabled} aria-label={label} title={label}
+      className={`grid h-8 w-8 place-items-center border border-line disabled:opacity-30 ${danger ? "text-sale" : ""} hover:bg-sand`}>
+      {children}
+    </button>
+  );
+}

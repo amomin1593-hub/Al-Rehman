@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+/* Brand tokens - change colours/fonts here and the whole site follows */
+@theme {
+  --color-paper: #f6f4f0;
+  --color-sand: #ece8e1;
+  --color-stone: #e2ddd5;
+  --color-line: #ddd7ce;
+  --color-ink: #1c1a18;
+  --color-ink-soft: #3a3631;
+  --color-muted: #77716a;
+  --color-bronze: #9a7b4f;
+  --color-bronze-dark: #7d6340;
+  --color-sale: #a4472d;
+
+  --font-sans: "Jost", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", ui-serif, Georgia, serif;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-paper text-ink font-sans font-light;
+  }
+  ::selection {
+    @apply bg-ink text-paper;
+  }
+}
+
+@utility container-x {
+  @apply mx-auto w-full max-w-[1440px] px-5 md:px-10;
+}
+
+@utility eyebrow {
+  @apply text-[11px] font-normal uppercase tracking-[0.28em] text-muted;
+}
+
+@utility h-display {
+  @apply font-display font-normal leading-[1.02] tracking-[-0.01em];
+}
+
+@utility btn {
+  @apply inline-flex items-center justify-center gap-3 px-7 py-3.5 text-[12px] font-normal uppercase tracking-[0.2em] transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-40;
+}
+
+@utility btn-dark {
+  @apply btn bg-ink text-paper hover:bg-bronze-dark;
+}
+
+@utility btn-light {
+  @apply btn bg-paper text-ink hover:bg-white;
+}
+
+@utility btn-line {
+  @apply btn border border-ink text-ink hover:bg-ink hover:text-paper;
+}
+
+@utility link-u {
+  @apply relative inline-block after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-full after:origin-right after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:origin-left hover:after:scale-x-100;
+}
+
+@utility field {
+  @apply w-full border border-line bg-white/60 px-4 py-3 text-[15px] font-light outline-none transition-colors placeholder:text-muted/70 focus:border-ink;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+.anim-in { animation: fade-up 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+
+@keyframes slow-zoom {
+  from { transform: scale(1.04); }
+  to { transform: scale(1); }
+}
+.anim-zoom { animation: slow-zoom 6s ease-out both; }

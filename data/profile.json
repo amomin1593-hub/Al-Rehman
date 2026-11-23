@@ -1,0 +1,149 @@
+{
+  "user": {
+    "name": "Ahmed Raza",
+    "email": "ahmed.raza@example.com",
+    "phone": "+92 300 1234567",
+    "member_since": "2024-03-07",
+    "tier": "Trade Partner",
+    "avatar_initials": "AR"
+  },
+  "stats": {
+    "orders": 4,
+    "wishlist": 5,
+    "reward_points": 1240
+  },
+  "addresses": [
+    {
+      "id": 1,
+      "label": "Home",
+      "default": true,
+      "name": "Ahmed Raza",
+      "line1": "House 12, Street 4, Satellite Town",
+      "city": "Gujranwala",
+      "province": "Punjab",
+      "phone": "+92 300 1234567"
+    },
+    {
+      "id": 2,
+      "label": "Site Office",
+      "default": false,
+      "name": "Ahmed Raza",
+      "line1": "Plot 88, Kangniwala Bypass",
+      "city": "Gujranwala",
+      "province": "Punjab",
+      "phone": "+92 321 7654321"
+    }
+  ],
+  "wishlist": [
+    16,
+    29,
+    7,
+    28,
+    32
+  ],
+  "orders": [
+    {
+      "id": "ART-24180",
+      "date": "2026-11-14",
+      "status": "Processing",
+      "payment": "Cash on Delivery",
+      "items": [
+        {
+          "product_id": 9,
+          "name": "Zaviya Gold Waterfall Mixer",
+          "qty": 1,
+          "price": 26000,
+          "finish": "chrome"
+        },
+        {
+          "product_id": 3,
+          "name": "Chenab Vessel Basin",
+          "qty": 1,
+          "price": 12350,
+          "finish": null
+        }
+      ],
+      "subtotal": 38350,
+      "shipping": 0
+    },
+    {
+      "id": "ART-24143",
+      "date": "2026-10-02",
+      "status": "Shipped",
+      "payment": "Bank Transfer",
+      "items": [
+        {
+          "product_id": 4,
+          "name": "Noor Wall-hung Basin",
+          "qty": 1,
+          "price": 11550,
+          "finish": null
+        },
+        {
+          "product_id": 12,
+          "name": "Margalla Pull-out Basin Mixer",
+          "qty": 2,
+          "price": 15600,
+          "finish": "brushed-gold"
+        }
+      ],
+      "subtotal": 42750,
+      "shipping": 0
+    },
+    {
+      "id": "ART-24106",
+      "date": "2026-08-21",
+      "status": "Delivered",
+      "payment": "Cash on Delivery",
+      "items": [
+        {
+          "product_id": 14,
+          "name": "Safa Pull-down Kitchen Tap",
+          "qty": 1,
+          "price": 35650,
+          "finish": "brushed-gold"
+        },
+        {
+          "product_id": 19,
+          "name": "Ravi Angle Valve",
+          "qty": 2,
+          "price": 6400,
+          "finish": "chrome"
+        },
+        {
+          "product_id": 29,
+          "name": "Indus Towel Rail & Hook",
+          "qty": 2,
+          "price": 8700,
+          "finish": "chrome"
+        }
+      ],
+      "subtotal": 65850,
+      "shipping": 0
+    },
+    {
+      "id": "ART-24069",
+      "date": "2026-06-09",
+      "status": "Delivered",
+      "payment": "Bank Transfer",
+      "items": [
+        {
+          "product_id": 3,
+          "name": "Chenab Vessel Basin",
+          "qty": 1,
+          "price": 12350,
+          "finish": null
+        },
+        {
+          "product_id": 1,
+          "name": "Safa Counter-top Basin",
+          "qty": 1,
+          "price": 29700,
+          "finish": null
+        }
+      ],
+      "subtotal": 42050,
+      "shipping": 0
+    }
+  ]
+}
