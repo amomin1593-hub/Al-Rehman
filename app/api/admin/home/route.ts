@@ -9,7 +9,13 @@ export async function PUT(req: Request) {
     const body = (await req.json()) as HomeContent;
     if (!Array.isArray(body.slides) || body.slides.length === 0) return fail("Keep at least one banner slide");
     if (!Array.isArray(body.tiles)) return fail("Tiles missing");
-    await saveHome({ announcement: String(body.announcement || ""), slides: body.slides, tiles: body.tiles });
+    await saveHome({
+      announcement: String(body.announcement || ""),
+      slides: body.slides,
+      tiles: body.tiles,
+      ...(body.story ? { story: body.story } : {}),
+      ...(body.video ? { video: body.video } : {}),
+    });
     revalidatePath("/", "layout");
     return NextResponse.json({ ok: true });
   });

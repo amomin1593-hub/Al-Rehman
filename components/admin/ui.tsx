@@ -50,6 +50,38 @@ export async function uploadPhoto(file: File, folder: "products" | "home"): Prom
   return url;
 }
 
+/** Upload a video (or any big file) with a progress callback.
+ *  With Supabase, the browser sends it straight to Supabase Storage (no size limit from the website host). */
+export async function uploadBigFile(file: File, folder: "products" | "home", onProgress?: (pct: number) => void): Promise<string> {
+  const prep = await api<{ ok: boolean; mode: "signed" | "direct"; uploadUrl?: string; publicUrl?: string }>(
+    "/api/admin/upload-url", "POST", { name: file.name, type: file.type, size: file.size, folder }
+  );
+  const send = (url: string, method: string, body: FormData) =>
+    new Promise<string>((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open(method, url);
+      if (method === "PUT") xhr.setRequestHeader("x-upsert", "false");
+      xhr.upload.onprogress = (e) => e.lengthComputable && onProgress?.(Math.round((e.loaded / e.total) * 100));
+      xhr.onload = () => (xhr.status >= 200 && xhr.status < 300 ? resolve(xhr.responseText) : reject(new Error(`Upload failed (${xhr.status}): ${xhr.responseText.slice(0, 200)}`)));
+      xhr.onerror = () => reject(new Error("Upload failed: network error"));
+      xhr.send(body);
+    });
+  if (prep.mode === "signed" && prep.uploadUrl && prep.publicUrl) {
+    const fd = new FormData();
+    fd.append("cacheControl", "31536000");
+    fd.append("", file);
+    await send(prep.uploadUrl, "PUT", fd);
+    return prep.publicUrl;
+  }
+  const fd = new FormData();
+  fd.append("file", file);
+  fd.append("folder", folder);
+  const text = await send("/api/admin/upload", "POST", fd);
+  const data = JSON.parse(text);
+  if (!data.ok) throw new Error(data.error || "Upload failed");
+  return data.url;
+}
+
 /** small status line used after saving */
 export function useStatus() {
   const [state, setState] = useState<{ kind: "idle" | "busy" | "ok" | "err"; msg?: string }>({ kind: "idle" });

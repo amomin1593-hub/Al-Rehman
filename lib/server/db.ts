@@ -222,12 +222,28 @@ export async function reduceStock(items: OrderItem[]) {
 
 // ---------- images ----------
 const TYPES: Record<string, string> = { "image/jpeg": ".jpg", "image/png": ".png", "image/webp": ".webp", "image/avif": ".avif" };
+export const VIDEO_TYPES: Record<string, string> = { "video/mp4": ".mp4", "video/webm": ".webm", "video/quicktime": ".mov" };
 export const MAX_UPLOAD = 8 * 1024 * 1024;
+export const MAX_VIDEO = 50 * 1024 * 1024; // Supabase free plan file limit
+
+/** For big files (videos): a one-time URL the browser uploads to directly, skipping the website server. */
+export async function signedUpload(fileName: string, type: string, size: number, folder: "products" | "home") {
+  const ext = VIDEO_TYPES[type] ?? TYPES[type];
+  if (!ext) throw Object.assign(new Error("Please upload an MP4, WebM or MOV video (or a JPG/PNG/WebP image)"), { status: 400 });
+  const limit = VIDEO_TYPES[type] ? MAX_VIDEO : MAX_UPLOAD;
+  if (size > limit) throw Object.assign(new Error(`File is larger than ${Math.round(limit / 1048576)} MB. Compress it first (e.g. with HandBrake) or use a YouTube link.`), { status: 400 });
+  if (!usingSupabase) return { mode: "direct" as const };
+  const base = slugify(fileName.replace(/\.[^.]+$/, "")).slice(0, 40) || "file";
+  const key = `${folder}/${Date.now().toString(36)}-${base}${ext}`;
+  const data = must(await sb().storage.from(BUCKET).createSignedUploadUrl(key), "prepare upload") as { signedUrl: string; token: string; path: string };
+  return { mode: "signed" as const, uploadUrl: data.signedUrl, publicUrl: sb().storage.from(BUCKET).getPublicUrl(key).data.publicUrl };
+}
 
 export async function uploadImage(file: File, folder: "products" | "home"): Promise<string> {
-  const ext = TYPES[file.type];
+  const isVideo = Boolean(VIDEO_TYPES[file.type]);
+  const ext = TYPES[file.type] ?? (folder === "home" ? VIDEO_TYPES[file.type] : undefined);
   if (!ext) throw Object.assign(new Error("Please upload a JPG, PNG, WebP or AVIF image"), { status: 400 });
-  if (file.size > MAX_UPLOAD) throw Object.assign(new Error("Image is larger than 8 MB"), { status: 400 });
+  if (file.size > (isVideo ? MAX_VIDEO : MAX_UPLOAD)) throw Object.assign(new Error(isVideo ? "Video is larger than 50 MB" : "Image is larger than 8 MB"), { status: 400 });
   const base = slugify(file.name.replace(/\.[^.]+$/, "")).slice(0, 40) || "image";
   const name = `${Date.now().toString(36)}-${base}${ext}`;
   const bytes = Buffer.from(await file.arrayBuffer());

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import HeroCarousel from "@/components/HeroCarousel";
 import ProductCard from "@/components/ProductCard";
@@ -7,12 +6,20 @@ import ProductImage from "@/components/ProductImage";
 import ProductArt from "@/components/ProductArt";
 import { SectionHead, SupportLinks, Newsletter } from "@/components/Blocks";
 import { catalogHelpers } from "@/lib/catalog";
+import { storyOf, videoOf } from "@/lib/home";
+import VideoSection from "@/components/VideoSection";
 import { getCatalog, getHome } from "@/lib/server/db";
+import { pkr } from "@/lib/site";
 
 export default async function Home() {
   const [catalog, homeContent] = await Promise.all([getCatalog(), getHome()]);
   const { categories, collections, featured, heroOfCategory, heroOfCollection } = catalogHelpers(catalog);
   const essentials = featured().slice(0, 8);
+  // up to 4 products with photos for the dark "Quality & Trust" section (featured first)
+  const withPhoto = (p: (typeof catalog.products)[number]) => Boolean(p.image_url || p.images?.length);
+  const spot = [...featured().filter(withPhoto), ...catalog.products.filter((p) => withPhoto(p) && !p.featured)].slice(0, 4);
+  const story = storyOf(homeContent);
+  const video = videoOf(homeContent);
 
 
   return (
@@ -80,27 +87,40 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Brand statement */}
-      <section className="bg-ink text-paper">
-        <div className="container-x grid items-center gap-14 py-24 md:grid-cols-2 md:py-32">
-          <div className="relative mx-auto aspect-square w-full max-w-md">
-            <div className="absolute inset-0 rounded-full border border-paper/10" />
-            <div className="absolute inset-10 rounded-full border border-paper/10" />
-            <Image src="/logo-light.png" alt="Al-Rehman Traders logo" fill loading="eager" sizes="400px" className="object-contain p-24 opacity-90" />
+      {/* Brand statement + featured products */}
+      {spot.length > 0 && (
+        <section className="bg-ink text-paper">
+          <div className="container-x grid items-center gap-10 py-14 md:grid-cols-2 md:gap-16 md:py-20">
+            <div className={`grid gap-3 ${spot.length > 1 ? "grid-cols-2" : "mx-auto w-full max-w-md grid-cols-1"}`}>
+              {spot.map((p) => (
+                <Link key={p.id} href={`/product/${p.slug}`} className="group block">
+                  <div className="aspect-square overflow-hidden bg-white">
+                    <div className="h-full transition-transform duration-700 group-hover:scale-[1.04]">
+                      <ProductImage product={p} idSuffix="spot" />
+                    </div>
+                  </div>
+                  <div className="mt-2 flex items-baseline justify-between gap-3 text-[12px] md:text-[13px]">
+                    <span className="truncate text-paper/85 group-hover:text-paper">{p.name}</span>
+                    <span className="shrink-0 text-paper/55">{pkr(p.price)}</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+            <div>
+              {story.eyebrow && <p className="text-[11px] uppercase tracking-[0.28em] text-paper/60">{story.eyebrow}</p>}
+              <h2 className="h-display mt-4 text-[36px] md:text-[50px]">
+                {story.title.split(/(\*[^*]+\*)/).map((part, i) =>
+                  part.startsWith("*") && part.endsWith("*") ? <em key={i} className="text-bronze">{part.slice(1, -1)}</em> : part
+                )}
+              </h2>
+              {story.text && <p className="mt-5 max-w-md text-[15px] leading-relaxed text-paper/70">{story.text}</p>}
+              {story.cta && <Link href={story.href || "/shop"} className="btn-light mt-8">{story.cta}</Link>}
+            </div>
           </div>
-          <div>
-            <p className="text-[11px] uppercase tracking-[0.28em] text-paper/60">Quality & Trust</p>
-            <h2 className="h-display mt-4 text-[44px] md:text-[64px]">
-              Quality you can feel, <em className="text-bronze">service</em> you can trust.
-            </h2>
-            <p className="mt-6 max-w-lg text-[16px] leading-relaxed text-paper/70">
-              From a single basin tap to a complete bathroom, Al-Rehman Traders supplies homes, builders and plumbers with sanitary ware that is
-              chosen for finish, durability and fair price. Visit us on Kangniwala Bypass, Gujranwala, or order online with delivery to your door.
-            </p>
-            <Link href="/about" className="btn-light mt-10">Our story</Link>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      <VideoSection video={video} />
 
       {/* Shop by category */}
       <section className="container-x py-20 md:py-28">
