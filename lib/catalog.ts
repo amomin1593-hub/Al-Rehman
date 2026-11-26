@@ -54,6 +54,14 @@ export const FINISH_HEX: Record<string, string> = {
 
 export type Catalog = { categories: Category[]; collections: Collection[]; finishes: Finish[]; products: Product[] };
 
+/** 2 = uploaded photo, 1 = starter photo, 0 = drawing only. Used to put your real photos first. */
+export function photoScore(p: Product): number {
+  const url = productPhotos(p)[0]?.url;
+  if (!url) return 0;
+  return url.startsWith("/products/catalog/") ? 1 : 2;
+}
+const best = (list: Product[]) => [...list].sort((a, b) => photoScore(b) - photoScore(a) || b.id - a.id)[0];
+
 export function catalogHelpers(c: Catalog) {
   const byCategory = (slug: string) => c.products.filter((p) => p.category === slug);
   const byCollection = (slug: string) => c.products.filter((p) => p.collection === slug);
@@ -67,10 +75,8 @@ export function catalogHelpers(c: Catalog) {
     byCategory,
     byCollection,
     featured: () => c.products.filter((p) => p.featured),
-    heroOfCategory: (slug: string) => byCategory(slug)[0] as Product | undefined,
-    heroOfCollection: (slug: string) =>
-      (byCollection(slug).find((p) => p.category === "bathroom-faucets" || p.category === "kitchen-faucets") ??
-        byCollection(slug)[0]) as Product | undefined,
+    heroOfCategory: (slug: string) => best(byCategory(slug)) as Product | undefined,
+    heroOfCollection: (slug: string) => best(byCollection(slug)) as Product | undefined,
     related: (p: Product, n = 4) =>
       c.products.filter((x) => x.id !== p.id && (x.collection === p.collection || x.category === p.category)).slice(0, n),
   };

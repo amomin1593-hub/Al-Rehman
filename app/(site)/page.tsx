@@ -5,7 +5,7 @@ import ProductCard from "@/components/ProductCard";
 import ProductImage from "@/components/ProductImage";
 import ProductArt from "@/components/ProductArt";
 import { SectionHead, SupportLinks, Newsletter } from "@/components/Blocks";
-import { catalogHelpers } from "@/lib/catalog";
+import { catalogHelpers, photoScore } from "@/lib/catalog";
 import { storyOf, videoOf } from "@/lib/home";
 import VideoSection from "@/components/VideoSection";
 import { getCatalog, getHome } from "@/lib/server/db";
@@ -14,10 +14,21 @@ import { pkr } from "@/lib/site";
 export default async function Home() {
   const [catalog, homeContent] = await Promise.all([getCatalog(), getHome()]);
   const { categories, collections, featured, heroOfCategory, heroOfCollection } = catalogHelpers(catalog);
-  const essentials = featured().slice(0, 8);
-  // up to 4 products with photos for the dark "Quality & Trust" section (featured first)
-  const withPhoto = (p: (typeof catalog.products)[number]) => Boolean(p.image_url || p.images?.length);
-  const spot = [...featured().filter(withPhoto), ...catalog.products.filter((p) => withPhoto(p) && !p.featured)].slice(0, 4);
+  // --- fill the home page with products, real uploaded photos first ---
+  type P = (typeof catalog.products)[number];
+  const shuffle = <T,>(a: T[]) => { const r = [...a]; for (let i = r.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [r[i], r[j]] = [r[j], r[i]]; } return r; };
+  const ranked = [...catalog.products].sort((a, b) => photoScore(b) - photoScore(a) || b.id - a.id);
+  const withPhoto = ranked.filter((p) => photoScore(p) > 0);
+  const used = new Set<number>();
+  const take = (list: P[], n: number) => { const out = list.filter((p) => !used.has(p.id)).slice(0, n); out.forEach((p) => used.add(p.id)); return out; };
+  // Best sellers: starred products first, topped up with your newest photographed items
+  const essentials = take([...featured().sort((a, b) => photoScore(b) - photoScore(a)), ...withPhoto], 8);
+  // New arrivals: the most recently added products
+  const newArrivals = take([...withPhoto].sort((a, b) => b.id - a.id), 8);
+  // More to explore: a different random mix on every visit
+  const explore = take(shuffle(withPhoto), 12);
+  // dark "Quality & Trust" section: 4 photographed products (may repeat ones above)
+  const spot = shuffle(withPhoto.filter((p) => photoScore(p) === 2).length >= 4 ? withPhoto.filter((p) => photoScore(p) === 2) : withPhoto).slice(0, 4);
   const story = storyOf(homeContent);
   const video = videoOf(homeContent);
 
@@ -87,6 +98,18 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* New arrivals */}
+      {newArrivals.length > 0 && (
+        <section className="border-t border-line bg-white/40 py-20 md:py-28">
+          <div className="container-x">
+            <SectionHead eyebrow="Just in" title="New arrivals" href="/shop" linkText="Shop all" />
+            <div className="grid grid-cols-2 gap-x-5 gap-y-12 lg:grid-cols-4">
+              {newArrivals.map((p) => <ProductCard key={p.id} product={p} />)}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Brand statement + featured products */}
       {spot.length > 0 && (
         <section className="bg-ink text-paper">
@@ -121,6 +144,19 @@ export default async function Home() {
       )}
 
       <VideoSection video={video} />
+
+      {/* More to explore: random mix */}
+      {explore.length > 0 && (
+        <section className="container-x py-20 md:py-28">
+          <SectionHead eyebrow="Discover" title="More to explore" href="/shop" linkText={`All ${catalog.products.length} products`} />
+          <div className="grid grid-cols-2 gap-x-5 gap-y-12 lg:grid-cols-4">
+            {explore.map((p) => <ProductCard key={p.id} product={p} />)}
+          </div>
+          <div className="mt-14 text-center">
+            <Link href="/shop" className="btn-line">Shop all {catalog.products.length} products</Link>
+          </div>
+        </section>
+      )}
 
       {/* Shop by category */}
       <section className="container-x py-20 md:py-28">

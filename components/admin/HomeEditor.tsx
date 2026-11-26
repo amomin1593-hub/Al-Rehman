@@ -86,6 +86,14 @@ export default function HomeEditor({ initial }: { initial: HomeContent }) {
                     fallback={<ProductArt art={s.art} finish={s.finish} tone={s.tone} id={`he${i}`} className="h-full w-full" />}
                   />
                   <p className="mt-2 text-[12px] text-muted">Wide photo, at least 1920×1080. Text sits on the left.</p>
+                  <div className="mt-4 flex items-start gap-3">
+                    <div className="w-24 shrink-0">
+                      <ImageField folder="home" aspect="aspect-[4/5]" value={s.imageMobile ?? null} onChange={(url) => setSlide(i, { imageMobile: url })} />
+                    </div>
+                    <p className="text-[12px] leading-relaxed text-muted">
+                      <b className="font-normal text-ink">Phone photo (optional).</b> Tall photo for phones, e.g. 1080×1350. Without it, phones show the wide photo, centred on the product.
+                    </p>
+                  </div>
                 </div>
                 <div className="grid gap-3 md:grid-cols-2">
                   <div className="flex items-center justify-between md:col-span-2">
@@ -174,15 +182,16 @@ function IconBtn({ children, onClick, label, disabled, danger }: { children: Rea
 
 function VideoEditor({ video, setVideo }: { video: Video; setVideo: (p: Partial<Video>) => void }) {
   const input = useRef<HTMLInputElement>(null);
+  const mobileInput = useRef<HTMLInputElement>(null);
   const [pct, setPct] = useState<number | null>(null);
   const [err, setErr] = useState("");
   const embed = video.url ? embedUrl(video.url) : null;
 
-  const upload = async (file: File) => {
+  const upload = async (file: File, field: "url" | "mobileUrl" = "url") => {
     setErr("");
     setPct(0);
     try {
-      setVideo({ url: await uploadBigFile(file, "home", setPct) });
+      setVideo({ [field]: await uploadBigFile(file, "home", setPct) });
     } catch (e) {
       setErr((e as Error).message);
     } finally {
@@ -232,6 +241,24 @@ function VideoEditor({ video, setVideo }: { video: Video; setVideo: (p: Partial<
         <Field label="…or paste a YouTube / Vimeo / video link" wide>
           <input className={inputCls} placeholder="https://www.youtube.com/watch?v=..." value={video.url} onChange={(e) => setVideo({ url: e.target.value.trim() })} />
         </Field>
+        <div className="border border-line bg-paper/60 p-3 md:col-span-2">
+          <p className="text-[12px] leading-relaxed text-muted">
+            <b className="font-normal text-ink">Phone video (optional).</b> A tall video (9:16, e.g. 1080×1920) just for phones. Without it, phones show the whole wide video with the text underneath.
+          </p>
+          <div className="mt-2 flex flex-wrap items-center gap-2">
+            <button type="button" disabled={pct !== null} onClick={() => mobileInput.current?.click()} className="flex items-center gap-1.5 border border-line bg-white px-3 py-2 text-[12px] hover:border-ink disabled:opacity-50">
+              <Upload size={14} /> {video.mobileUrl ? "Replace phone video" : "Upload phone video"}
+            </button>
+            {video.mobileUrl && (
+              <button type="button" onClick={() => setVideo({ mobileUrl: "" })} className="flex items-center gap-1.5 border border-line bg-white px-3 py-2 text-[12px] text-sale hover:border-sale">
+                <Trash2 size={14} /> Remove
+              </button>
+            )}
+            <input className={`${inputCls} min-w-[220px] flex-1`} placeholder="…or paste a link (YouTube Shorts works)" value={video.mobileUrl ?? ""} onChange={(e) => setVideo({ mobileUrl: e.target.value.trim() })} />
+          </div>
+          <input ref={mobileInput} type="file" accept="video/mp4,video/webm,video/quicktime" className="hidden"
+            onChange={(e) => { const f = e.target.files?.[0]; e.target.value = ""; if (f) upload(f, "mobileUrl"); }} />
+        </div>
         <Field label="Small label"><input className={inputCls} value={video.eyebrow} onChange={(e) => setVideo({ eyebrow: e.target.value })} /></Field>
         <Field label="Button text"><input className={inputCls} value={video.cta} onChange={(e) => setVideo({ cta: e.target.value })} /></Field>
         <Field label="Headline (leave empty for no text)" wide><input className={inputCls} value={video.title} onChange={(e) => setVideo({ title: e.target.value })} /></Field>

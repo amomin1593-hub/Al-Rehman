@@ -5,6 +5,7 @@ import { Heart, Truck, ShieldCheck, RotateCcw, Star, ChevronDown } from "lucide-
 import { useStore } from "./StoreProvider";
 import { QtyControl } from "./CartDrawer";
 import ProductArt from "./ProductArt";
+import { Photo } from "./ProductImage";
 import { FINISH_HEX, productPhotos, type Product } from "@/lib/catalog";
 import { useCatalog } from "./CatalogProvider";
 import { pkr, waLink, site } from "@/lib/site";
@@ -28,8 +29,7 @@ export default function ProductDetail({ product: p }: { product: Product }) {
   const drawing = (tone: string, id: string) => (
     <ProductArt art={p.art} finish={fin?.hex ?? FINISH_HEX.chrome} tone={tone || p.tone} id={id} className="h-full w-full" />
   );
-  // eslint-disable-next-line @next/next/no-img-element
-  const photo = (url: string) => <img src={url} alt={p.name} className="h-full w-full bg-white object-contain" />;
+  const photo = (url: string, fit: "cover" | "contain" = "cover") => <Photo url={url} alt={p.name} fit={fit} eager />;
 
   // picking a finish shows that finish's photo; picking a photo selects its finish
   const pickFinish = (f: string) => {
@@ -84,7 +84,7 @@ export default function ProductDetail({ product: p }: { product: Product }) {
                 ))}
             </div>
             <div className="relative aspect-square flex-1 overflow-hidden bg-white">
-              {photos.length ? photo(photos[Math.min(view, photos.length - 1)].url) : drawing(VIEW_TONES[view], `pd-main-${view}-${finish}`)}
+              {photos.length ? photo(photos[Math.min(view, photos.length - 1)].url, "contain") : drawing(VIEW_TONES[view], `pd-main-${view}-${finish}`)}
               {p.badge && <span className={`absolute left-4 top-4 px-3 py-1 text-[10px] uppercase tracking-[0.2em] ${p.badge === "Sale" ? "bg-sale text-paper" : "bg-paper"}`}>{p.badge}</span>}
             </div>
           </div>

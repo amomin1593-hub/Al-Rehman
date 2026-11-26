@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { SlidersHorizontal, X } from "lucide-react";
 import ProductCard from "./ProductCard";
-import type { Product } from "@/lib/catalog";
+import { photoScore, type Product } from "@/lib/catalog";
 import { useCatalog } from "./CatalogProvider";
 
 type Props = {
@@ -46,7 +46,7 @@ export default function ShopView({ eyebrow, title, intro, items, hideCategory, h
     if (sort === "price-asc") r = [...r].sort((a, b) => a.price - b.price);
     if (sort === "price-desc") r = [...r].sort((a, b) => b.price - a.price);
     if (sort === "rating") r = [...r].sort((a, b) => b.rating - a.rating);
-    if (sort === "featured") r = [...r].sort((a, b) => Number(b.featured) - Number(a.featured));
+    if (sort === "featured") r = [...r].sort((a, b) => Number(b.featured) - Number(a.featured) || photoScore(b) - photoScore(a) || b.id - a.id);
     return r;
   }, [items, cat, col, fin, inStock, sort]);
 

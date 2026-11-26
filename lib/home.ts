@@ -6,6 +6,8 @@ export type Slide = {
   cta: string;
   href: string;
   image: string | null;
+  /** optional tall photo for phones (portrait, e.g. 1080×1350) */
+  imageMobile?: string | null;
   // drawing used when there is no image
   art: string;
   finish: string;
@@ -15,7 +17,7 @@ export type Tile = { eyebrow: string; title: string; text: string; href: string;
 /** Dark "Quality & Trust" section. Wrap a word in *stars* to show it in gold italics. */
 export type Story = { eyebrow: string; title: string; text: string; cta: string; href: string };
 /** Video section. Empty url = section hidden. url can be an uploaded .mp4 or a YouTube / Vimeo link. */
-export type Video = { url: string; poster: string | null; eyebrow: string; title: string; text: string; cta: string; href: string };
+export type Video = { url: string; mobileUrl?: string; poster: string | null; eyebrow: string; title: string; text: string; cta: string; href: string };
 export type HomeContent = { announcement: string; slides: Slide[]; tiles: Tile[]; story?: Story; video?: Video };
 
 export const DEFAULT_STORY: Story = {
