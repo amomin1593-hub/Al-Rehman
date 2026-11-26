@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { ArrowDown, ArrowUp, Plus, Trash2, ExternalLink, Upload } from "lucide-react";
 import ProductArt from "@/components/ProductArt";
 import { api, Card, Field, ImageField, inputCls, PageTitle, Status, uploadBigFile, useStatus } from "./ui";
-import { embedUrl, storyOf, videoOf, type HomeContent, type Slide, type Story, type Tile, type Video } from "@/lib/home";
+import { embedUrl, storyOf, videoOf, type HomeContent, type Slide, type Story, type Tile, type Video, type VideoShape } from "@/lib/home";
 
 const blankSlide: Slide = {
   label: "New collection",
@@ -91,7 +91,7 @@ export default function HomeEditor({ initial }: { initial: HomeContent }) {
                       <ImageField folder="home" aspect="aspect-[4/5]" value={s.imageMobile ?? null} onChange={(url) => setSlide(i, { imageMobile: url })} />
                     </div>
                     <p className="text-[12px] leading-relaxed text-muted">
-                      <b className="font-normal text-ink">Phone photo (optional).</b> Tall photo for phones, e.g. 1080×1350. Without it, phones show the wide photo, centred on the product.
+                      <b className="font-normal text-ink">Phone photo (optional).</b> Tall photo for phones, e.g. 1080×1350. Without it, phones show the whole wide photo with the text underneath.
                     </p>
                   </div>
                 </div>
@@ -208,7 +208,7 @@ function VideoEditor({ video, setVideo }: { video: Video; setVideo: (p: Partial<
               <iframe src={embed} title="Video preview" className="h-full w-full border-0" allow="autoplay; encrypted-media" />
             ) : (
               // eslint-disable-next-line jsx-a11y/media-has-caption
-              <video src={video.url} poster={video.poster ?? undefined} muted loop autoPlay playsInline className="h-full w-full object-cover" />
+              <video src={video.url} poster={video.poster ?? undefined} muted loop autoPlay playsInline className="h-full w-full bg-black object-contain" />
             )
           ) : (
             <div className="grid h-full place-items-center px-4 text-center text-[13px] text-muted">No video. The section is hidden on the site.</div>
@@ -240,6 +240,16 @@ function VideoEditor({ video, setVideo }: { video: Video; setVideo: (p: Partial<
       <div className="grid content-start gap-3 md:grid-cols-2">
         <Field label="…or paste a YouTube / Vimeo / video link" wide>
           <input className={inputCls} placeholder="https://www.youtube.com/watch?v=..." value={video.url} onChange={(e) => setVideo({ url: e.target.value.trim() })} />
+        </Field>
+        <Field label="Video shape" wide>
+          <select className={inputCls} value={video.shape ?? "auto"} onChange={(e) => setVideo({ shape: e.target.value as VideoShape })}>
+            <option value="auto">Automatic (uploaded files are measured; YouTube = wide, Shorts = tall)</option>
+            <option value="wide">Wide 16:9 (landscape)</option>
+            <option value="square">Square 1:1</option>
+            <option value="portrait">Portrait 4:5</option>
+            <option value="tall">Tall 9:16 (filmed upright on a phone)</option>
+          </select>
+          <span className="mt-1 block text-[11px] text-muted">If the video looks small or has black bars on the site, pick the shape it was filmed in.</span>
         </Field>
         <div className="border border-line bg-paper/60 p-3 md:col-span-2">
           <p className="text-[12px] leading-relaxed text-muted">

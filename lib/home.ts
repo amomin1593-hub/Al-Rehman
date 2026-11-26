@@ -17,7 +17,9 @@ export type Tile = { eyebrow: string; title: string; text: string; href: string;
 /** Dark "Quality & Trust" section. Wrap a word in *stars* to show it in gold italics. */
 export type Story = { eyebrow: string; title: string; text: string; cta: string; href: string };
 /** Video section. Empty url = section hidden. url can be an uploaded .mp4 or a YouTube / Vimeo link. */
-export type Video = { url: string; mobileUrl?: string; poster: string | null; eyebrow: string; title: string; text: string; cta: string; href: string };
+export type VideoShape = "auto" | "wide" | "square" | "portrait" | "tall";
+export const SHAPE_RATIO: Record<Exclude<VideoShape, "auto">, number> = { wide: 16 / 9, square: 1, portrait: 4 / 5, tall: 9 / 16 };
+export type Video = { url: string; mobileUrl?: string; shape?: VideoShape; poster: string | null; eyebrow: string; title: string; text: string; cta: string; href: string };
 export type HomeContent = { announcement: string; slides: Slide[]; tiles: Tile[]; story?: Story; video?: Video };
 
 export const DEFAULT_STORY: Story = {
